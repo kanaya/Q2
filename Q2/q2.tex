@@ -12,6 +12,7 @@
 \newcommand{\ii}{\mathbf{i}}
 \newcommand{\jj}{\mathbf{j}}
 \newcommand{\kk}{\mathbf{k}}
+\newcommand{\ee}{\mathit{e}}
 \newcommand{\abs}[1]{\|{#1}\|}
 \newcommand{\norm}[1]{\|{#1}\|}
 \newcommand{\bvec}[1]{\boldsymbol{#1}}
@@ -311,6 +312,9 @@ p_\mu=\langle\bvec{p},\bvec{e}_\mu\rangle
 \begin{equation}
 \begin{bmatrix}p'_1\\p'_2\end{bmatrix}=\begin{bmatrix}\cos\theta&-\sin\theta\\\sin\theta&\cos\theta\end{bmatrix}\begin{bmatrix}p_1\\p_2\end{bmatrix}
 \end{equation}
+%
+% なぜ?
+%
 ここで行列
 \begin{equation}
 T(\theta)\equiv\begin{bmatrix}\cos\theta&-\sin\theta\\\sin\theta&\cos\theta\end{bmatrix}
@@ -338,7 +342,22 @@ T(\theta)\equiv\begin{bmatrix}\cos\theta&-\sin\theta\\\sin\theta&\cos\theta\end{
 \begin{equation}
 \langle\alpha,\beta\rangle\equiv\alpha^*\beta
 \end{equation}
-
+複素座標系における回転の作用素$T(\theta)$は次の形を取る．
+\begin{equation}
+T(\theta)=\cos\theta+\im\sin\theta
+\end{equation}
+%
+% なぜ?
+%
+オイラーの公式
+\begin{equation}
+\ee^{\im\theta}=\cos\theta+\im\sin\theta
+\end{equation}
+を用いると，回転$T(\theta)$は
+\begin{equation}
+T(\theta)=\ee^{\im\theta}
+\end{equation}
+とさらに簡潔に書ける．
 
 \section{行列による3次元の回転と外積}
 \section{クォータニオンによる3次元の回転}
