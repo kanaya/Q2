@@ -1,18 +1,365 @@
-\documentclass[twocolunmn]{jsarticle}
+\documentclass{jsbook}
 \usepackage{amssymb,amsmath}
+
+\newcommand{\cxx}{\textrm{C}\texttt{++}}
+\newcommand{\keyword}[1]{\emph{#1}}
+
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\Zero}{\mathbf{O}}
+\newcommand{\one}{\mathbf{1}}
+\newcommand{\One}{\mathbf{I}}
+\newcommand{\im}{\mathbf{i}}
+\newcommand{\ii}{\mathbf{i}}
+\newcommand{\jj}{\mathbf{j}}
+\newcommand{\kk}{\mathbf{k}}
+\newcommand{\abs}[1]{\|{#1}\|}
+\newcommand{\norm}[1]{\|{#1}\|}
+\newcommand{\bvec}[1]{\boldsymbol{#1}}
 
 \title{クォータニオン入門加筆}
 \author{金谷一朗}
 
 \begin{document}
 \setlength{\baselineskip}{17pt}
+\setcounter{chapter}{-1}
+
 \maketitle
+\tableofcontents
 
-\section{群について}
+\chapter{オリジナル版の内容のまとめ}
 
-\section{リー群（リー代数）について}
+\section{実数・複素数・クォータニオン --- 数}
 
-\section{束について}
+\subsection{実数}
+
+\cxx 言語ではdouble型に単項プラス，単項マイナス，和，差，積，商の6個の演算子が定義されている．
+これを「double型は\keyword{数としてのインタフェース}を持つ」と言う．
+
+数としてのインタフェースは実際には次のリストに集約される．
+\begin{description}
+\item[和の演算子] $a+b$の$+$演算子．
+\item[零元（ゼロ，和の単位元）] $\zero+a=a+\zero=a$であるような$\zero.$
+\item[負元（和の逆元）] $a$に対して$-a+a=\zero$となるような$-a.$
+\item[積の演算子] $a\cdot b$の$\cdot$演算子．普通は省略される．
+\item[単位元（イチ）] $\one a=a\one=a$であるような$\one.$
+\item[逆元] $a$に対して$a^{-1}a=1$であるような$a^{-1}.$
+\end{description}
+\cxx 言語のdouble型の元になっている\keyword{実数}は上述のインタフェースを持つ．上述の6個のインタフェースは
+\begin{description}
+\item[和] 演算子，単位元，逆元
+\item[積] 演算子，単位元，逆元
+\end{description}
+という3個ずつのインタフェースに分類できる．
+
+和と積にはそれぞれ次の関係がある．
+\begin{align}
+abc&=(ab)c\\
+  &=a(bc)\\
+a+b+c&=(a+b)+c\\
+  &=a+(b+c)
+\end{align}
+これを\keyword{結合則}と呼ぶ．
+
+和と積が混在した場合は常に積が優先される．
+\begin{equation}
+ab+c=(ab)+c
+\end{equation}
+和と積の間には次の関係が成り立つ．
+\begin{align}
+a(b+c)&=ab+ac\\
+(a+b)c&=ac+bc
+\end{align}
+これを\keyword{分配則}と呼ぶ．
+
+零元（ゼロ，和の単位元）と任意の元との積は常に零元である．
+\begin{equation}
+\zero a=a\zero =\zero
+\end{equation}
+
+\subsection{複素数}
+
+実数に限らず，\keyword{複素数}も上述の6個のインタフェース，結合則，分配則に従う．
+複素数とは実数単位$\one$の時数倍と虚数単位$\im$の実数倍との和である．
+$a,b$を実数とすると，$\alpha=\one a+\im b$が複素数の一般形である．
+
+虚数単位は次の性質を持つ．
+\begin{equation}
+\im^2=-\one
+\end{equation}
+
+複素数は数としてのインタフェースに加えて次のインタフェースを持つ．
+\begin{description}
+\item[共役複素数] ある複素数$\alpha$が$\alpha=\one a+\im b$であるとき$\alpha^*\equiv\one a-\im b$なる$\alpha^*$を$\alpha$の共役複素数と呼ぶ．
+\item[複素数のノルム] ある複素数$\alpha$について，
+\begin{equation}
+\norm{\alpha}\equiv\sqrt{\alpha^*\alpha}
+\end{equation}
+を$\alpha$のノルムと呼ぶ．
+ノルムは「大きさ」という概念に近い．
+\end{description}
+
+複素数$\alpha$の逆数（逆複素数）$\alpha^{-1}$は次のように求めることが出来る．
+\begin{equation}
+\alpha^{-1}=\frac{\alpha^*}{\norm{\alpha}^2}
+\end{equation}
+
+\subsection{クォータニオン}
+
+$Q=\one a+\ii b+\jj c+\kk d$なる数$Q$を\keyword{クォータニオン}（四元数）と呼ぶ．
+ただし $\ii,\jj,\kk$ はそれぞれクォータニオン単位であって，
+\begin{equation}
+\ii^2=\jj^2=\kk^2=\ii\jj\kk=-\one,\,
+\ii\jj=-\jj\ii=\kk,\,
+\jj\kk=-\kk\jj=\ii,\,
+\kk\ii=-\ii\kk=\jj
+\end{equation}
+であるとする．
+
+クォータニオンは数としてのインタフェースに加えて次のインタフェースを持つ．
+\begin{description}
+\item[共役クォータニオン] あるクォータニオン$Q$が$Q=\one a+\ii b+\jj c+\kk d$であるとき$Q^*\equiv\one a-\ii b-\jj c-\kk d$なる$Q^*$を$Q$の共役クォータニオンと呼ぶ．
+\item[クォータニオンのノルム] あるクォータニオン$Q$について，
+\begin{equation}\norm{Q}\equiv\sqrt{Q^*Q}
+\end{equation}
+を$Q$のノルムと呼ぶ．
+ノルムは「大きさ」という概念に近い．
+\end{description}
+
+クォータニオン$Q$の逆数（逆クォータニオン）$Q^{-1}$は次のように求めることが出来る．
+\begin{equation}
+Q^{-1}=\frac{Q^*}{\norm{Q}^2}
+\end{equation}
+
+\section{行列 --- もうひとつの数}
+
+\subsection{連立線形方程式と行列}
+
+未知数$x$に関する線形方程式
+\begin{equation}
+ax+b=\zero
+\end{equation}
+の解は$x=-a^{-1}b$である．
+
+未知数 $x_1,x_2$ に関する連立線形方程式
+\begin{align}
+a_{1,1}x_1+a_{1,2}x_2+b_1&=\zero\\
+a_{2,1}x_1+a_{2,2}x_2+b_2&=\zero
+\end{align}
+の解について，新たな記号を発明して
+\begin{equation}
+\begin{bmatrix}a_{1,1}&a_{1,2}\\a_{2,1}&a_{2,2}\end{bmatrix}\begin{bmatrix}x_1\\x_2\end{bmatrix}+\begin{bmatrix}b_1\\b_2\end{bmatrix}=\begin{bmatrix}\zero\\\zero\end{bmatrix}
+\end{equation}
+と書き直し，
+\begin{equation}
+A\equiv\begin{bmatrix}a_{1,1}&a_{1,2}\\a_{2,1}&a_{2,2}\end{bmatrix},\,
+X\equiv\begin{bmatrix}x_1\\x_2\end{bmatrix},\,
+B\equiv\begin{bmatrix}b_1\\b_2\end{bmatrix},\,
+\Zero\equiv\begin{bmatrix}\zero\\\zero\end{bmatrix}
+\end{equation}
+とすると，未知数 $x_1,x_2$ に関する連立線形方程式は
+\begin{equation}
+AX+B=\Zero
+\end{equation}
+と書け，シンプルで美しく見える．
+演算規則をうまく調整すると，上述の連立線形方程式の解は$X=-A^{-1}B$と書ける．
+このようにして作った $A,B,X,\Zero$ を\keyword{行列}と呼ぶ．
+
+\subsection{正方行列}
+
+各要素が実数からなり，行と列の大きさが等しい行列を\keyword{実正方行列}と呼ぶ．実正方行列を$A$とすると次のように書ける．
+\begin{equation}
+A=\begin{bmatrix}a_{11}&a_{12}&\dots&a_{1j}&\dots&a_{1n}\\
+  a_{21}&a_{22}\\
+  \vdots&&\ddots\\
+  a_{i1}&&&a_{ij}\\
+  \vdots&&&&\ddots\\
+  a_{n1}&&&&&a_{nn}\end{bmatrix}
+\end{equation}
+そこで実正方行列$A$は，その要素と添字を使って$[a_{ij}]$と書くこともある．
+
+実正方行列には
+\begin{itemize}
+\item 和
+\item 零元
+\item 負元
+\end{itemize}
+が定義されている．行列$[a_{ij}]$と行列$[b_{ij}]$の和は
+\begin{equation}
+[a_{ij}]+[b_{ij}]\equiv[a_{ij}+b_{ij}]
+\end{equation}
+であり，行列の零元（ゼロ行列）$\Zero$はすべての要素が$\zero$であるような行列である．
+
+行列$[a_{ij}]$と行列$[b_{ij}]$の積も定義されており
+\begin{equation}
+[a_{ij}][b_{ij}]\equiv\sum_{k=1}^n[a_{ik}b_{kj}]
+\end{equation}
+である．この定義から，積の単位元（単位行列）$\One$は
+\begin{equation}
+\One\equiv\begin{bmatrix}1&0&\dots\\
+  0&1\\
+  \vdots&&\ddots\end{bmatrix}
+\end{equation}
+でなければならないことがわかる．単位行列$\One$は$[\delta_{ij}]$とも書く．デルタ記号を使うのは歴史的理由である．
+
+\subsection{直交行列とユニタリ行列}
+
+行列$[a_{ij}]$に対して，行と列を入れ替えた$[a_{ji}]$は元の行列の\keyword{転置行列}と呼ばれる．
+転置行列は
+\begin{equation}
+[a_{ij}]^t\equiv[a_{ji}]
+\end{equation}
+のような記号を使って表す．もし
+\begin{equation}
+[a_{ij}]^t=[a_{ij}]
+\end{equation}
+であるならば，行列$[a_{ij}]$は\keyword{対称行列}である．もし
+\begin{equation}
+[a_{ij}]^t=-[a_{ij}]
+\end{equation}
+であるならば，行列$[a_{ij}]$は\keyword{反対称行列}である．
+
+実数の代わりに複素数を用いた正方行列を\keyword{複素正方行列}と呼ぶ．
+いま複素正方行列を$[\alpha_{ij}]$で表すとき，その共役と転置を行った$[\alpha^*_{ji}]$を\keyword{共役転置行列}と呼ぶ．
+共役転置行列を作る操作には特別な記号が割り当てられており，次のように表す．
+\begin{equation}
+[\alpha_{ij}]^\dagger\equiv[\alpha^*_{ji}]
+\end{equation}
+
+もし
+\begin{equation}
+[a_{ij}]^\dagger=[a_{ij}]
+\end{equation}
+であるならば，行列$[\alpha_{ij}]$は\keyword{エルミート行列}である．もし
+\begin{equation}
+[a_{ij}]^\dagger=-[a_{ij}]
+\end{equation}
+であるならば，行列$[\alpha_{ij}]$は\keyword{反エルミート行列}である．
+
+実正方行列$A$について，もし
+\begin{equation}
+A^tA=\One
+\end{equation}
+であるならば，行列$A$は\keyword{直交行列}である．複素正方行列$A$について，もし
+\begin{equation}
+A^\dagger A=\One
+\end{equation}
+であるならば，行列$A$は\keyword{ユニタリ行列}である．
+
+% $\det A$
+
+\section{行列による2次元の回転と内積}
+
+\subsection{ベクトル}
+
+ベクトルには
+\begin{itemize}
+\item 和
+\item 零元（ゼロベクトル）
+\item 負元（逆ベクトル）
+\end{itemize}
+がある．またベクトルは実数倍が出来る．
+
+ベクトル$\bvec{p}$のノルム$\norm{\bvec{p}}$という量を定義できる．
+ノルムの定義は複数あるが，最もよく用いられているものは，ベクトルをユークリッド空間における位置とみなし，その位置の原点からの距離とする定義である．
+
+二つのベクトル $\bvec{p},\bvec{q}$ の間に\keyword{内積}という演算が定義できる．
+内積は $\langle\bvec{p},\bvec{q}\rangle$ で表す．
+ベクトルをユークリッド空間における位置とみなしたとき，二つのベクトルのなす角度を$\theta$として，
+\begin{equation}
+\langle\bvec{p},\bvec{q}\rangle\equiv\norm{\bvec{p}}\norm{\bvec{q}}\cos\theta
+\end{equation}
+と定義するのが，最も一般的な内積の定義である．
+この定義に従えば，ベクトル$\bvec{p}$のノルム$\norm{\bvec{p}}$は
+\begin{equation}
+\norm{\bvec{p}}=\sqrt{\langle\bvec{p},\bvec{p}\rangle}
+\end{equation}
+である．
+
+幾何学的な座標系を導入すると便利なことが多々ある．
+座標系を表すベクトルを\keyword{基底ベクトル}と呼ぶ．
+基底ベクトルとしていま $\bvec{e}_1,\bvec{e}_2$ があるとする．
+
+ベクトル$\bvec{p}$の\keyword{成分}を $p_1,p_2$ で表すと，
+\begin{equation}
+p_\mu=\langle\bvec{p},\bvec{e}_\mu\rangle
+\end{equation}
+である．ただし$\mu$は $1,2$ である．ベクトルは成分と基底ベクトルから次のように合成できる．
+\begin{equation}
+\bvec{p}=\sum_{\mu=1}^2p_\mu\bvec{e}_\mu
+\end{equation}
+
+基底ベクトルの組として\keyword{正規直交系}を選ぶとは
+\begin{gather}
+\norm{\bvec{e}_1}=\norm{\bvec{e}_2}=1\\
+\langle\bvec{e}_1,\bvec{e}_2\rangle=0
+\end{gather}
+を満たすような $\bvec{e}_1,\bvec{e}_2$ を選ぶということである．一般には
+\begin{equation}
+\langle\bvec{e}_\mu,\bvec{e}_\nu\rangle=\delta_{\mu\nu}
+\end{equation}
+と書くことが多い．
+
+\subsection{ベクトルの回転}
+
+ベクトル$\bvec{p}$の正規直交系での成分 $p_1,p_2$ を行列風に
+\begin{equation}
+\begin{bmatrix}p_1\\p_2\end{bmatrix}
+\end{equation}
+と書くと便利なことがある．
+ベクトル$\bvec{p}$で表される位置（これを今後$\vec{P}$としよう）を原点まわりに$\theta$回転させた
+位置（これは$\vec{P'}$とする）のベクトル$\bvec{p}'$の成分は次のように計算出来る．
+\begin{equation}
+\begin{bmatrix}p'_1\\p'_2\end{bmatrix}=\begin{bmatrix}\cos\theta&-\sin\theta\\\sin\theta&\cos\theta\end{bmatrix}\begin{bmatrix}p_1\\p_2\end{bmatrix}
+\end{equation}
+ここで行列
+\begin{equation}
+T(\theta)\equiv\begin{bmatrix}\cos\theta&-\sin\theta\\\sin\theta&\cos\theta\end{bmatrix}
+\end{equation}
+を導入し，ベクトルと行列を意図的に混同すると
+\begin{equation}
+\bvec{p}'=T(\theta)\bvec{p}
+\end{equation}
+という簡潔な式が得られる．ここで行列だとか成分だとかを一切忘れて，ベクトル$\bvec{p}$に作用するものとして$T(\theta)$を捉える．
+この$T(\theta)$は\keyword{作用素}と呼ばれる．
+
+\section{複素数による2次元の回転}
+
+正規直交系の基底ベクトルとは
+\begin{equation}
+\langle\bvec{e}_\mu,\bvec{e}_\nu\rangle=\delta_{\mu\nu}
+\end{equation}
+を満たしてさえいればよい．もし内積の定義を都合よく選べば
+\begin{equation}
+\bvec{e}_1=\one,\,\bvec{e}_2=\im
+\end{equation}
+なる座標系を作ることが出来る．実際この座標系は\keyword{複素座標系}またはガウス座標系と呼ばれる．
+
+複素座標系では，内積 $\langle\alpha,\beta\rangle$ を次のように定義する．
+\begin{equation}
+\langle\alpha,\beta\rangle\equiv\alpha^*\beta
+\end{equation}
+
+
+\section{行列による3次元の回転と外積}
+\section{クォータニオンによる3次元の回転}
+\section{テンソルとスピノール}
+
+\begin{enumerate}
+\item 実数・複素数・クォータニオン --- 数
+\item 行列 --- もうひとつの数
+\item 行列による2次元の回転と内積
+\item 複素数による2次元の回転
+\item 行列による3次元の回転と外積
+\item クォータニオンによる3次元の回転
+\item テンソルとスピノール
+\end{enumerate}
+
+
+\chapter{群について}
+
+\chapter{リー群（リー代数）について}
+
+\chapter{束について}
 
 
 \end{document}
