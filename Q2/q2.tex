@@ -7,8 +7,9 @@
 \newcommand{\zero}{\mathbf{0}}
 \newcommand{\Zero}{\mathbf{O}}
 \newcommand{\one}{\mathbf{1}}
-\newcommand{\One}{\mathbf{I}}
+\newcommand{\One}{\mathbf{1}}
 \newcommand{\im}{\mathbf{i}}
+\newcommand{\I}{\mathbf{I}}
 \newcommand{\ii}{\mathbf{i}}
 \newcommand{\jj}{\mathbf{j}}
 \newcommand{\kk}{\mathbf{k}}
@@ -43,7 +44,7 @@
 \item[負元（和の逆元）] $a$に対して$-a+a=\zero$となるような$-a.$
 \item[積の演算子] $a\cdot b$の$\cdot$演算子．普通は省略される．
 \item[単位元（イチ）] $\one a=a\one=a$であるような$\one.$
-\item[逆元] $a$に対して$a^{-1}a=1$であるような$a^{-1}.$
+\item[逆元] $a$に対して$a^{-1}a=\one$であるような$a^{-1}.$
 \end{description}
 \cxx 言語のdouble型の元になっている\keyword{実数}は上述のインタフェースを持つ．上述の6個のインタフェースは
 \begin{description}
@@ -263,9 +264,12 @@ A^\dagger A=\One
 ベクトル$\bvec{p}$のノルム$\norm{\bvec{p}}$という量を定義できる．
 ノルムの定義は複数あるが，最もよく用いられているものは，ベクトルをユークリッド空間における位置とみなし，その位置の原点からの距離とする定義である．
 
+\subsection{内積}
+
 二つのベクトル $\bvec{p},\bvec{q}$ の間に\keyword{内積}という演算が定義できる．
 内積は $\langle\bvec{p},\bvec{q}\rangle$ で表す．
-ベクトルをユークリッド空間における位置とみなしたとき，二つのベクトルのなす角度を$\theta$として，
+ベクトルをユークリッド空間における位置 $\overrightarrow{OP},\overrightarrow{OQ}$ とみなしたとき，
+二つのベクトルのなす角度を$\theta$として，
 \begin{equation}
 \langle\bvec{p},\bvec{q}\rangle\equiv\norm{\bvec{p}}\norm{\bvec{q}}\cos\theta
 \end{equation}
@@ -307,14 +311,13 @@ p_\mu=\langle\bvec{p},\bvec{e}_\mu\rangle
 \begin{bmatrix}p_1\\p_2\end{bmatrix}
 \end{equation}
 と書くと便利なことがある．
-ベクトル$\bvec{p}$で表される位置（これを今後$\vec{P}$としよう）を原点まわりに$\theta$回転させた
-位置（これは$\vec{P'}$とする）のベクトル$\bvec{p}'$の成分は次のように計算出来る．
+ベクトル$\bvec{p}$で表される位置（これを今後$\overrightarrow{OP}$としよう）を原点まわりに$\theta$回転させた
+位置（これは$\overrightarrow{OP'}$とする）のベクトル$\bvec{p}'$の成分は次のように計算出来る．
 \begin{equation}
 \begin{bmatrix}p'_1\\p'_2\end{bmatrix}=\begin{bmatrix}\cos\theta&-\sin\theta\\\sin\theta&\cos\theta\end{bmatrix}\begin{bmatrix}p_1\\p_2\end{bmatrix}
 \end{equation}
-%
-% なぜ?
-%
+証明はオリジナル版を参照．
+
 ここで行列
 \begin{equation}
 T(\theta)\equiv\begin{bmatrix}\cos\theta&-\sin\theta\\\sin\theta&\cos\theta\end{bmatrix}
@@ -328,6 +331,8 @@ T(\theta)\equiv\begin{bmatrix}\cos\theta&-\sin\theta\\\sin\theta&\cos\theta\end{
 
 \section{複素数による2次元の回転}
 
+\subsection{複素数で表す２次元ベクトル}
+
 正規直交系の基底ベクトルとは
 \begin{equation}
 \langle\bvec{e}_\mu,\bvec{e}_\nu\rangle=\delta_{\mu\nu}
@@ -337,6 +342,8 @@ T(\theta)\equiv\begin{bmatrix}\cos\theta&-\sin\theta\\\sin\theta&\cos\theta\end{
 \bvec{e}_1=\one,\,\bvec{e}_2=\im
 \end{equation}
 なる座標系を作ることが出来る．実際この座標系は\keyword{複素座標系}またはガウス座標系と呼ばれる．
+
+\subsection{回転}
 
 複素座標系では，内積 $\langle\alpha,\beta\rangle$ を次のように定義する．
 \begin{equation}
@@ -359,7 +366,116 @@ T(\theta)=\ee^{\im\theta}
 \end{equation}
 とさらに簡潔に書ける．
 
+\subsection{ベクトルと行列と複素数の関係}
+
+２次元ベクトルが行列でも複素数でも書けるのは，基底ベクトルの取り方次第だからである．
+基底ベクトルに正規直交系を選ぶと便利であった．正規直交系とは基底ベクトル$\bvec{p}_\mu$が
+\begin{equation}
+\langle\bvec{e}_\mu,\bvec{e}_\nu\rangle=\delta_{\mu\nu}
+\end{equation}
+でありさえすればよく，内積をうまく定義してやれば自由に基底ベクトルを選べる．
+
+行列スタイルを採用して
+\begin{equation}
+\bvec{e}_1=\begin{bmatrix}1\\0\end{bmatrix},\,
+\bvec{e}_2=\begin{bmatrix}0\\1\end{bmatrix}
+\end{equation}
+としても良かったし，複素数スタイルを採用して
+\begin{equation}
+\bvec{e}_1=\one,\,
+\bvec{e}_2=\im
+\end{equation}
+としても良かった．
+どちらかと言えば複素数スタイルのほうが数としてのインタフェースを使えるので優れているとは言える．
+そこで数としてのインタフェースを保ちつつ行列も使えないかと考えると
+\begin{equation}
+\bvec{e}_1=\begin{bmatrix}1&0\\0&1\end{bmatrix},\,
+\bvec{e}_2=\begin{bmatrix}0&-1\\1&0\end{bmatrix}
+\end{equation}
+という基底ベクトルも良いことに気づくだろう．
+この場合$\bvec{e}_1$のほうは単位行列$\One$と同じであるので，
+もうひとつの$\bvec{e}_2$のほうを虚数単位$\im$に対応させて
+\begin{equation}
+\I\equiv\begin{bmatrix}0&-1\\1&0\end{bmatrix}
+\end{equation}
+と名づけても構わない．
+%
+% それで?
+%
+
 \section{行列による3次元の回転と外積}
+
+\subsection{外積}
+
+2次元のユークリッド空間を3次元に拡張するのはわけないことだ．
+とりわけ行列スタイルであればほとんど自動的に
+\begin{equation}
+\bvec{e}_1=\begin{bmatrix}1\\0\\0\end{bmatrix},\,
+\bvec{e}_2=\begin{bmatrix}0\\1\\0\end{bmatrix},\,
+\bvec{e}_3=\begin{bmatrix}0\\0\\1\end{bmatrix},\,
+\end{equation}
+を採用すれば良いことがわかる．
+
+ここで，3次元空間で非常にうまくいくトリックを導入する．次に述べる\keyword{外積}という演算を3次元ベクトル同士に定義する．
+\begin{equation}
+\bvec{r}=\bvec{p}\times\bvec{q}
+\end{equation}
+ここにベクトル$\bvec{r}$はベクトル$\bvec{p}$および$\bvec{q}$に直交し，そのノルムがベクトル$\bvec{p}$とベクトル$\bvec{q}$の張る平行四辺形に等しいとする．
+ベクトル$\bvec{r}$の向きは，右手で直交座標系を作り，ベクトル$\bvec{p}$を右手親指，ベクトル$\bvec{q}$を右手人差し指とした場合，右手中指の方向である．
+%
+% 直交の定義がまだ
+%
+定義から，ベクトル$\bvec{p}$とベクトル$\bvec{q}$の角度を$\theta$としたときに
+\begin{equation}
+\norm{\bvec{r}}=\norm{\bvec{p}}\norm{\bvec{q}}\sin\theta
+\end{equation}
+である．
+
+外積は成分ごとに計算すると手っ取り早い．
+\begin{equation}
+\bvec{p}\times\bvec{q}=\begin{bmatrix}p_2q_3-p_3q_2\\p_3q_1-p_1q_3\\p_1q_2-p_2q_1\end{bmatrix}
+\end{equation}
+少しでもスタイリッシュにしたければ行列式を使うことは出来る．
+\begin{equation}
+\bvec{p}\times\bvec{q}=\det\begin{bmatrix}\bvec{e}_1&p_1&q_1\\\bvec{e}_2&p_2&q_2\\\bvec{e}_3&p_3&q_3\end{bmatrix}
+\end{equation}
+%
+% 行列式の定義まだ
+%
+
+三重積
+\begin{equation}
+\bvec{p}\times\bvec{q}\times\bvec{r}=\bvec{q}\langle\bvec{p},\bvec{r}\rangle-\bvec{r}\langle\bvec{p},\bvec{q}\rangle
+\end{equation}
+は大切な関係である．
+
+\subsection{回転}
+
+3次元ユークリッド空間の回転を考える．いま3軸まわりの回転だけを考えると，それは2次元の回転と変わらない．
+3軸まわりの$\theta$回転を$T_3(\theta)$とすると
+\begin{equation}
+T_3(\theta)=\begin{bmatrix}\cos\theta&-\sin\theta&0\\\sin\theta&\cos\theta&0\\0&0&1\end{bmatrix}
+\end{equation}
+である．同じく2軸まわりは
+\begin{equation}
+T_2(\theta)=\begin{bmatrix}\cos\theta&0&\sin\theta\\0&1&0\\-\sin\theta&0&\cos\theta\end{bmatrix}
+\end{equation}
+であり，1軸まわりは
+\begin{equation}
+T_1(\theta)=\begin{bmatrix}1&0&0\\0&\cos\theta&-\sin\theta\\0&\sin\theta&\cos\theta\end{bmatrix}
+\end{equation}
+である．
+
+これらの回転行列のうち，ふたつを組み合わせれば3次元の回転は全て表現できる．
+
+\subsection{もう一つの回転}
+
+回転の計算に外積を使うことも出来る．ベクトル$\bvec{p}$をベクトル$\bvec{r}$まわりに$\theta$回転させたベクトル$\bvec{p}'$は
+\begin{equation}
+\bvec{p}'=\bvec{p}\cos\theta+\bvec{r}\times\bvec{p}\sin\theta+\bvec{r}\langle\bvec{r},\bvec{p}\rangle(1-\cos\theta)
+\end{equation}
+である．ただし$\norm{\bvec{r}}=1$を仮定した．証明はオリジナル版を参照．
+
 \section{クォータニオンによる3次元の回転}
 \section{テンソルとスピノール}
 
