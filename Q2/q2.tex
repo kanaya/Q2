@@ -4,19 +4,20 @@
 \newcommand{\cxx}{\textrm{C}\texttt{++}}
 \newcommand{\keyword}[1]{\emph{#1}}
 
-\newcommand{\zero}{\mathbf{0}}
-\newcommand{\Zero}{\mathbf{O}}
-\newcommand{\one}{\mathbf{1}}
-\newcommand{\One}{\mathbf{1}}
-\newcommand{\im}{\mathbf{i}}
-\newcommand{\I}{\mathbf{I}}
-\newcommand{\ii}{\mathbf{i}}
-\newcommand{\jj}{\mathbf{j}}
-\newcommand{\kk}{\mathbf{k}}
+\newcommand{\zero}{0}%{\mathbf{0}}
+\newcommand{\Zero}{\mathrm{O}}%{\mathbf{O}}
+\newcommand{\one}{1}%{\mathbf{1}}
+\newcommand{\One}{\mathrm{I}}%{\mathbf{1}}
+\newcommand{\im}{\mathrm{i}}%{\mathbf{i}}
+\newcommand{\I}{\mathrm{I}}%{\mathbf{I}}
+\newcommand{\ii}{\mathrm{i}}%{\mathbf{i}}
+\newcommand{\jj}{\mathrm{j}}%{\mathbf{j}}
+\newcommand{\kk}{\mathrm{k}}%{\mathbf{k}}
 \newcommand{\ee}{\mathit{e}}
 \newcommand{\abs}[1]{\|{#1}\|}
 \newcommand{\norm}[1]{\|{#1}\|}
 \newcommand{\bvec}[1]{\boldsymbol{#1}}
+\newcommand{\ve}{\mathrm{e}}
 
 \title{クォータニオン入門加筆}
 \author{金谷一朗}
@@ -282,25 +283,25 @@ A^\dagger A=\One
 
 幾何学的な座標系を導入すると便利なことが多々ある．
 座標系を表すベクトルを\keyword{基底ベクトル}と呼ぶ．
-基底ベクトルとしていま $\bvec{e}_1,\bvec{e}_2$ があるとする．
+基底ベクトルとしていま $\ve_1,\ve_2$ があるとする．
 
 ベクトル$\bvec{p}$の\keyword{成分}を $p_1,p_2$ で表すと，
 \begin{equation}
-p_\mu=\langle\bvec{p},\bvec{e}_\mu\rangle
+p_i=\langle\bvec{p},\ve_i\rangle
 \end{equation}
-である．ただし$\mu$は $1,2$ である．ベクトルは成分と基底ベクトルから次のように合成できる．
+である．ただし$i$は $1,2$ である．ベクトルは成分と基底ベクトルから次のように合成できる．
 \begin{equation}
-\bvec{p}=\sum_{\mu=1}^2p_\mu\bvec{e}_\mu
+\bvec{p}=\sum_{i=1}^2p_i\ve_i
 \end{equation}
 
 基底ベクトルの組として\keyword{正規直交系}を選ぶとは
 \begin{gather}
-\norm{\bvec{e}_1}=\norm{\bvec{e}_2}=1\\
-\langle\bvec{e}_1,\bvec{e}_2\rangle=0
+\norm{\ve_1}=\norm{\ve_2}=1\\
+\langle\ve_1,\ve_2\rangle=0
 \end{gather}
-を満たすような $\bvec{e}_1,\bvec{e}_2$ を選ぶということである．一般には
+を満たすような $\ve_1,\ve_2$ を選ぶということである．一般には
 \begin{equation}
-\langle\bvec{e}_\mu,\bvec{e}_\nu\rangle=\delta_{\mu\nu}
+\langle\ve_i,\ve_j\rangle=\delta_{ij}
 \end{equation}
 と書くことが多い．
 
@@ -335,11 +336,11 @@ T(\theta)\equiv\begin{bmatrix}\cos\theta&-\sin\theta\\\sin\theta&\cos\theta\end{
 
 正規直交系の基底ベクトルとは
 \begin{equation}
-\langle\bvec{e}_\mu,\bvec{e}_\nu\rangle=\delta_{\mu\nu}
+\langle\ve_i,\ve_j\rangle=\delta_{ij}
 \end{equation}
 を満たしてさえいればよい．もし内積の定義を都合よく選べば
 \begin{equation}
-\bvec{e}_1=\one,\,\bvec{e}_2=\im
+\ve_1=\one,\,\ve_2=\im
 \end{equation}
 なる座標系を作ることが出来る．実際この座標系は\keyword{複素座標系}またはガウス座標系と呼ばれる．
 
@@ -349,52 +350,58 @@ T(\theta)\equiv\begin{bmatrix}\cos\theta&-\sin\theta\\\sin\theta&\cos\theta\end{
 \begin{equation}
 \langle\alpha,\beta\rangle\equiv\alpha^*\beta
 \end{equation}
-複素座標系における回転の作用素$T(\theta)$は次の形を取る．
+複素座標系における回転の作用素$U(\theta)$は次の形を取る．
 \begin{equation}
-T(\theta)=\cos\theta+\im\sin\theta
+U(\theta)=\cos\theta+\im\sin\theta
 \end{equation}
 %
 % なぜ?
 %
+
+...
+\begin{equation}
+\bvec{p}'=U(\theta)\bvec{p}
+\end{equation}
+
 オイラーの公式
 \begin{equation}
 \ee^{\im\theta}=\cos\theta+\im\sin\theta
 \end{equation}
 を用いると，回転$T(\theta)$は
 \begin{equation}
-T(\theta)=\ee^{\im\theta}
+U(\theta)=\ee^{\im\theta}
 \end{equation}
 とさらに簡潔に書ける．
 
 \subsection{ベクトルと行列と複素数の関係}
 
 ２次元ベクトルが行列でも複素数でも書けるのは，基底ベクトルの取り方次第だからである．
-基底ベクトルに正規直交系を選ぶと便利であった．正規直交系とは基底ベクトル$\bvec{p}_\mu$が
+基底ベクトルに正規直交系を選ぶと便利であった．正規直交系とは基底ベクトル$\bvec{p}_i$が
 \begin{equation}
-\langle\bvec{e}_\mu,\bvec{e}_\nu\rangle=\delta_{\mu\nu}
+\langle\ve_i,\ve_j\rangle=\delta_{ij}
 \end{equation}
 でありさえすればよく，内積をうまく定義してやれば自由に基底ベクトルを選べる．
 
 行列スタイルを採用して
 \begin{equation}
-\bvec{e}_1=\begin{bmatrix}1\\0\end{bmatrix},\,
-\bvec{e}_2=\begin{bmatrix}0\\1\end{bmatrix}
+\ve_1=\begin{bmatrix}1\\0\end{bmatrix},\,
+\ve_2=\begin{bmatrix}0\\1\end{bmatrix}
 \end{equation}
 としても良かったし，複素数スタイルを採用して
 \begin{equation}
-\bvec{e}_1=\one,\,
-\bvec{e}_2=\im
+\ve_1=\one,\,
+\ve_2=\im
 \end{equation}
 としても良かった．
 どちらかと言えば複素数スタイルのほうが数としてのインタフェースを使えるので優れているとは言える．
 そこで数としてのインタフェースを保ちつつ行列も使えないかと考えると
 \begin{equation}
-\bvec{e}_1=\begin{bmatrix}1&0\\0&1\end{bmatrix},\,
-\bvec{e}_2=\begin{bmatrix}0&-1\\1&0\end{bmatrix}
+\ve_1=\begin{bmatrix}1&0\\0&1\end{bmatrix},\,
+\ve_2=\begin{bmatrix}0&-1\\1&0\end{bmatrix}
 \end{equation}
 という基底ベクトルも良いことに気づくだろう．
-この場合$\bvec{e}_1$のほうは単位行列$\One$と同じであるので，
-もうひとつの$\bvec{e}_2$のほうを虚数単位$\im$に対応させて
+この場合$\ve_1$のほうは単位行列$\One$と同じであるので，
+もうひとつの$\ve_2$のほうを虚数単位$\im$に対応させて
 \begin{equation}
 \I\equiv\begin{bmatrix}0&-1\\1&0\end{bmatrix}
 \end{equation}
@@ -410,9 +417,9 @@ T(\theta)=\ee^{\im\theta}
 2次元のユークリッド空間を3次元に拡張するのはわけないことだ．
 とりわけ行列スタイルであればほとんど自動的に
 \begin{equation}
-\bvec{e}_1=\begin{bmatrix}1\\0\\0\end{bmatrix},\,
-\bvec{e}_2=\begin{bmatrix}0\\1\\0\end{bmatrix},\,
-\bvec{e}_3=\begin{bmatrix}0\\0\\1\end{bmatrix},\,
+\ve_1=\begin{bmatrix}1\\0\\0\end{bmatrix},\,
+\ve_2=\begin{bmatrix}0\\1\\0\end{bmatrix},\,
+\ve_3=\begin{bmatrix}0\\0\\1\end{bmatrix},\,
 \end{equation}
 を採用すれば良いことがわかる．
 
@@ -437,7 +444,7 @@ T(\theta)=\ee^{\im\theta}
 \end{equation}
 少しでもスタイリッシュにしたければ行列式を使うことは出来る．
 \begin{equation}
-\bvec{p}\times\bvec{q}=\det\begin{bmatrix}\bvec{e}_1&p_1&q_1\\\bvec{e}_2&p_2&q_2\\\bvec{e}_3&p_3&q_3\end{bmatrix}
+\bvec{p}\times\bvec{q}=\det\begin{bmatrix}\ve_1&p_1&q_1\\\ve_2&p_2&q_2\\\ve_3&p_3&q_3\end{bmatrix}
 \end{equation}
 %
 % 行列式の定義まだ
@@ -477,17 +484,112 @@ T_1(\theta)=\begin{bmatrix}1&0&0\\0&\cos\theta&-\sin\theta\\0&\sin\theta&\cos\th
 である．ただし$\norm{\bvec{r}}=1$を仮定した．証明はオリジナル版を参照．
 
 \section{クォータニオンによる3次元の回転}
+
+\subsection{パウリ行列}
+
+2次元の場合，正規直交系の基底ベクトルとして行列と複素数のどちらも選べた．3次元の場合の複素数に相当する基底ベクトルはあるだろうか．
+次の複素行列は3次元の正規直交基底であることが知られている．
+\begin{equation}
+\sigma_1=\begin{bmatrix}0&1\\1&0\end{bmatrix},\,
+\sigma_2=\begin{bmatrix}0&-\im\\\im&0\end{bmatrix},\,
+\sigma_3=\begin{bmatrix}1&0\\0&-1\end{bmatrix}
+\end{equation}
+これらの行列は\keyword{パウリ行列}と呼ばれている．
+
+パウリ行列は様々な良い性質を持つ．
+各々の行列の自乗は単位行列になる．
+\begin{equation}
+{\sigma_1}^2=\One,\,
+{\sigma_2}^2=\One,\,
+{\sigma_3}^2=\One
+\end{equation}
+
+各々の行列の積は，残りの行列になる．
+\begin{equation}
+\sigma_1\sigma_2=\sigma_3,\,
+\sigma_2\sigma_3=\sigma_1,\,
+\sigma_3\sigma_1=\sigma_2
+\end{equation}
+この性質は，すなわち通常の行列積がベクトルの外積として使えることを示す．
+
+内積...
+
+\subsection{クォータニオン}
+
+パウリ行列に一工夫を加えると，クォータニオンが得られる．
+\begin{equation}
+Q=\One a+\im\sigma_3b+\im\sigma_2c+\im\sigma_1d
+\end{equation}
+なる量$Q$はクォータニオンとしての性質をすべて持つ．また $\im\sigma_3,\im\sigma_2,\im\sigma_1$ はクォータニオン単位の性質を持つ．そこで
+\begin{equation}
+\ve_1=\im\sigma_3,\,
+\ve_2=\im\sigma_2,\,
+\ve_3=\im\sigma_1
+\end{equation}
+を基底ベクトルとして採用しよう．
+
+ベクトル$\bvec{p}$をベクトル$\bvec{r}$まわりに$\theta$回転させる演算子を$U(\bvec{r},\theta)$とする．
+回転後のベクトル$\bvec{p}'$は演算子$U(\bvec{r},\theta)$を用いて
+\begin{equation}
+\bvec{p}'=U^*(\bvec{r},\theta)\bvec{p}U(\bvec{r},\theta)
+\end{equation}
+のように計算できる．ここに
+\begin{equation}
+U(\theta)=\One\cos\frac{\theta}{2}+\bvec{r}\sin\frac{\theta}{2}
+\end{equation}
+である．証明はオリジナル版にある．
+
 \section{テンソルとスピノール}
 
-\begin{enumerate}
-\item 実数・複素数・クォータニオン --- 数
-\item 行列 --- もうひとつの数
-\item 行列による2次元の回転と内積
-\item 複素数による2次元の回転
-\item 行列による3次元の回転と外積
-\item クォータニオンによる3次元の回転
-\item テンソルとスピノール
-\end{enumerate}
+ベクトル$\bvec{p}$を成分で$p_\mu$と書いてみる．
+回転の演算子$T$も成分で$T_{\mu\nu}$と書いてみる．
+ベクトルの回転は
+\begin{equation}
+p_\nu'=\sum_{\mu=1}^NT_{\mu\nu}p_\mu
+\end{equation}
+である．行列の書き方を用いると次のように書き直せる．
+\begin{equation}
+[p_i']=[T_{ij}][p_i]
+\end{equation}
+または
+\begin{equation}
+\bvec{p}'=T\bvec{p}
+\end{equation}
+
+このように変換される$p_\mu$を1階の\keyword{テンソル}と呼ぶ．
+次のように変換されるテンソルもあり，これを2階テンソルと呼ぶ．
+\begin{equation}
+P_{\kappa\lambda}'=\sum_{\mu=1}^N\sum_{\nu=1}^NT_{\mu\kappa}T_{\nu\lambda}P_{\mu\nu}
+\end{equation}
+この式を行列を用いて書くと，行列の演算の非対称性から若干の工夫が必要になる．結局
+\begin{equation}
+[P_{ij}']=[T_{ij}]^t[P_{ij}][T_{ij}]
+\end{equation}
+または
+\begin{equation}
+\bvec{P}'=T^t\bvec{P}T
+\end{equation}
+となる．
+
+繰り返すと1階テンソルとは
+\begin{equation}
+\bvec{p}'=T\bvec{p}
+\end{equation}
+と変換される量である．2階テンソルとは
+\begin{equation}
+\bvec{P}'=T^t\bvec{P}T
+\end{equation}
+と変換される量である．
+
+ここで1階テンソルはクォータニオンを使えば
+\begin{equation}
+\bvec{p}'=U^*\bvec{p}U
+\end{equation}
+と書けたことを思い出そう．では
+\begin{equation}
+\bvec{\psi}'=U\bvec{\psi}
+\end{equation}
+なる量$\bvec{\psi}$はあるだろうか．
 
 
 \chapter{群について}
