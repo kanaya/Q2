@@ -2,50 +2,83 @@
 \usepackage{amssymb,amsmath}
 
 \newcommand{\cxx}{\textrm{C}\texttt{++}}
+\newcommand{\cliteral}[1]{\texttt{#1}}
+\newcommand{\ckeyword}[1]{\textbf{#1}}
+\newcommand{\cid}[1]{\textit{#1}}
+
 \newcommand{\keyword}[1]{\emph{#1}}
 
-\newcommand{\zero}{0}%{\mathbf{0}}
-\newcommand{\Zero}{\mathrm{O}}%{\mathbf{O}}
-\newcommand{\one}{1}%{\mathbf{1}}
-\newcommand{\One}{\mathrm{I}}%{\mathbf{1}}
-\newcommand{\im}{\mathrm{i}}%{\mathbf{i}}
-\newcommand{\I}{\mathrm{I}}%{\mathbf{I}}
-\newcommand{\ii}{\mathrm{i}}%{\mathbf{i}}
-\newcommand{\jj}{\mathrm{j}}%{\mathbf{j}}
-\newcommand{\kk}{\mathrm{k}}%{\mathbf{k}}
+\newcommand{\bvec}[1]{\boldsymbol{#1}}
+\newcommand{\bop}[1]{\boldsymbol{#1}}
+
+\newcommand{\ii}{I}%{\mathbf{i}}
+\newcommand{\jj}{J}%{\mathbf{j}}
+\newcommand{\kk}{K}%{\mathbf{k}}
+
+\newcommand{\Zero}{0}%{\mathbf{O}}
+\newcommand{\One}{1}%{\mathbf{1}}
+
+\newcommand{\im}{i}%{\mathbf{i}}
+\newcommand{\I}{I}%{\mathbf{I}}
+
 \newcommand{\ee}{\mathit{e}}
 \newcommand{\abs}[1]{\|{#1}\|}
 \newcommand{\norm}[1]{\|{#1}\|}
-\newcommand{\bvec}[1]{\boldsymbol{#1}}
-\newcommand{\ve}{\mathrm{e}}
+\newcommand{\ve}{\bvec{e}}
 
 \title{クォータニオン入門加筆}
 \author{金谷一朗}
 
 \begin{document}
 \setlength{\baselineskip}{17pt}
-\setcounter{chapter}{-1}
 
 \maketitle
 \tableofcontents
 
+\setcounter{chapter}{-1}
 \chapter{オリジナル版の内容のまとめ}
+
+\setcounter{section}{-1}
+\section{記号一覧}
+
+\begin{description}
+\item[実数] 実数は小文字のローマ文字を使う．例: $a,b,c.$
+\item[複素数] 複素数は小文字のギリシャ文字を使う．例: $\alpha,\beta,\gamma.$
+\item[行列] 行列は大文字を使う．例: $A,B,C.$
+\item[クォータニオン] クォータニオンは大文字のギリシャ文字を使う．例: $\varPhi,\varPsi,\varSigma.$
+\item[ベクトル] ベクトルは太字を使う．
+ベクトルの表現として複素数，行列，クォータニオンを使うことがあるが，全て小文字のローマ文字を使う．
+例: $\bvec{a},\bvec{b},\bvec{c}.$
+\item[スピノール] スピノールは太字を使い，全て小文字のギリシャ文字を使う．
+例: $\bvec{\alpha},\bvec{\beta},\bvec{\gamma}.$
+\item[作用素] ベクトルに対する作用素は太字を使う．
+作用素の表現として複素数，行列，クォータニオンを使うことがあるが，全て大文字のローマ文字を使う．
+例: $\bop{A},\bop{B},\bop{C}.$
+\item[単位] 虚数単位は$\im$で表す． クォータニオン単位は $\ii,\jj,\kk$ で表す．
+単位行列は$\One$で，零行列は$\Zero$で表す．
+\item[基底ベクトル] 基底ベクトルは$\ve$で表す．
+\item[添字] 添字は $i,j,k$ を用いる．
+\item[その他] ネイピア数は$e$で表す．クロネッカーのデルタは$\delta$で表す．
+円周率は$\pi$で表す．パウリ行列は$\sigma$で表す．
+角度にはギリシャ文字を使う．
+\end{description}
 
 \section{実数・複素数・クォータニオン --- 数}
 
 \subsection{実数}
 
-\cxx 言語ではdouble型に単項プラス，単項マイナス，和，差，積，商の6個の演算子が定義されている．
-これを「double型は\keyword{数としてのインタフェース}を持つ」と言う．
+\cxx 言語では\ckeyword{double}型に単項プラス，単項マイナス，和，差，積，商の6個の演算子が定義されている．
+これを「\ckeyword{double}型は\keyword{数としてのインタフェース}を持つ」と言う．
 
 数としてのインタフェースは実際には次のリストに集約される．
 \begin{description}
-\item[和の演算子] $a+b$の$+$演算子．
-\item[零元（ゼロ，和の単位元）] $\zero+a=a+\zero=a$であるような$\zero.$
-\item[負元（和の逆元）] $a$に対して$-a+a=\zero$となるような$-a.$
-\item[積の演算子] $a\cdot b$の$\cdot$演算子．普通は省略される．
-\item[単位元（イチ）] $\one a=a\one=a$であるような$\one.$
-\item[逆元] $a$に対して$a^{-1}a=\one$であるような$a^{-1}.$
+\item[和の演算子] $a+b$の$+$演算子．\cxx 言語の和演算子．
+\item[零元（ゼロ，和の単位元）] $0+a=a+0=a$であるような$0$．\cxx 言語のリテラル\cliteral{0}.
+\item[負元（和の逆元）] $a$に対して$-a+a=0$となるような$-a$．\cxx 言語の単項マイナス．
+\item[積の演算子] $a\cdot b$の$\cdot$演算子．普通は省略される．\cxx 言語の積演算子．
+\item[単位元（イチ）] $1a=a1=a$であるような$1$．\cxx 言語のリテラル\cliteral{1.0}.
+\item[逆元] $a$に対して$a^{-1}a=1$であるような$a^{-1}$．\cxx 言語ではデフォルトで用意されていないが
+ラムダ式 \texttt{[]}(\ckeyword{double} \cid{x}) \{ \ckeyword{return} \cliteral{1.0}/\cid{x}; \} を用いて容易に実装可能である．
 \end{description}
 \cxx 言語のdouble型の元になっている\keyword{実数}は上述のインタフェースを持つ．上述の6個のインタフェースは
 \begin{description}
@@ -76,23 +109,23 @@ a(b+c)&=ab+ac\\
 
 零元（ゼロ，和の単位元）と任意の元との積は常に零元である．
 \begin{equation}
-\zero a=a\zero =\zero
+0 a=a0 =0
 \end{equation}
 
 \subsection{複素数}
 
 実数に限らず，\keyword{複素数}も上述の6個のインタフェース，結合則，分配則に従う．
-複素数とは実数単位$\one$の時数倍と虚数単位$\im$の実数倍との和である．
-$a,b$を実数とすると，$\alpha=\one a+\im b$が複素数の一般形である．
+複素数とは実数単位$1$の時数倍と虚数単位$\im$の実数倍との和である．
+$a,b$を実数とすると，$\alpha=1 a+\im b$が複素数の一般形である．
 
 虚数単位は次の性質を持つ．
 \begin{equation}
-\im^2=-\one
+\im^2=-1
 \end{equation}
 
 複素数は数としてのインタフェースに加えて次のインタフェースを持つ．
 \begin{description}
-\item[共役複素数] ある複素数$\alpha$が$\alpha=\one a+\im b$であるとき$\alpha^*\equiv\one a-\im b$なる$\alpha^*$を$\alpha$の共役複素数と呼ぶ．
+\item[共役複素数] ある複素数$\alpha$が$\alpha=1 a+\im b$であるとき$\alpha^*\equiv1 a-\im b$なる$\alpha^*$を$\alpha$の共役複素数と呼ぶ．
 \item[複素数のノルム] ある複素数$\alpha$について，
 \begin{equation}
 \norm{\alpha}\equiv\sqrt{\alpha^*\alpha}
@@ -108,10 +141,10 @@ $a,b$を実数とすると，$\alpha=\one a+\im b$が複素数の一般形であ
 
 \subsection{クォータニオン}
 
-$Q=\one a+\ii b+\jj c+\kk d$なる数$Q$を\keyword{クォータニオン}（四元数）と呼ぶ．
+$\varPhi=1 a+\ii b+\jj c+\kk d$なる数$\varPhi$を\keyword{クォータニオン}（四元数）と呼ぶ．
 ただし $\ii,\jj,\kk$ はそれぞれクォータニオン単位であって，
 \begin{equation}
-\ii^2=\jj^2=\kk^2=\ii\jj\kk=-\one,\,
+\ii^2=\jj^2=\kk^2=\ii\jj\kk=-1,\,
 \ii\jj=-\jj\ii=\kk,\,
 \jj\kk=-\kk\jj=\ii,\,
 \kk\ii=-\ii\kk=\jj
@@ -120,17 +153,18 @@ $Q=\one a+\ii b+\jj c+\kk d$なる数$Q$を\keyword{クォータニオン}（四
 
 クォータニオンは数としてのインタフェースに加えて次のインタフェースを持つ．
 \begin{description}
-\item[共役クォータニオン] あるクォータニオン$Q$が$Q=\one a+\ii b+\jj c+\kk d$であるとき$Q^*\equiv\one a-\ii b-\jj c-\kk d$なる$Q^*$を$Q$の共役クォータニオンと呼ぶ．
-\item[クォータニオンのノルム] あるクォータニオン$Q$について，
-\begin{equation}\norm{Q}\equiv\sqrt{Q^*Q}
+\item[共役クォータニオン] あるクォータニオン$\varPhi$が$\varPhi=1 a+\ii b+\jj c+\kk d$である
+とき$\varPhi^*\equiv1 a-\ii b-\jj c-\kk d$なる$\varPhi^*$を$\varPhi$の共役クォータニオンと呼ぶ．
+\item[クォータニオンのノルム] あるクォータニオン$\varPhi$について，
+\begin{equation}\norm{\varPhi}\equiv\sqrt{\varPhi^*\varPhi}
 \end{equation}
-を$Q$のノルムと呼ぶ．
+を$\varPhi$のノルムと呼ぶ．
 ノルムは「大きさ」という概念に近い．
 \end{description}
 
-クォータニオン$Q$の逆数（逆クォータニオン）$Q^{-1}$は次のように求めることが出来る．
+クォータニオン$\varPhi$の逆数（逆クォータニオン）$\varPhi^{-1}$は次のように求めることが出来る．
 \begin{equation}
-Q^{-1}=\frac{Q^*}{\norm{Q}^2}
+\varPhi^{-1}=\frac{\varPhi^*}{\norm{\varPhi}^2}
 \end{equation}
 
 \section{行列 --- もうひとつの数}
@@ -139,25 +173,25 @@ Q^{-1}=\frac{Q^*}{\norm{Q}^2}
 
 未知数$x$に関する線形方程式
 \begin{equation}
-ax+b=\zero
+ax+b=0
 \end{equation}
 の解は$x=-a^{-1}b$である．
 
 未知数 $x_1,x_2$ に関する連立線形方程式
 \begin{align}
-a_{1,1}x_1+a_{1,2}x_2+b_1&=\zero\\
-a_{2,1}x_1+a_{2,2}x_2+b_2&=\zero
+a_{1,1}x_1+a_{1,2}x_2+b_1&=0\\
+a_{2,1}x_1+a_{2,2}x_2+b_2&=0
 \end{align}
 の解について，新たな記号を発明して
 \begin{equation}
-\begin{bmatrix}a_{1,1}&a_{1,2}\\a_{2,1}&a_{2,2}\end{bmatrix}\begin{bmatrix}x_1\\x_2\end{bmatrix}+\begin{bmatrix}b_1\\b_2\end{bmatrix}=\begin{bmatrix}\zero\\\zero\end{bmatrix}
+\begin{bmatrix}a_{1,1}&a_{1,2}\\a_{2,1}&a_{2,2}\end{bmatrix}\begin{bmatrix}x_1\\x_2\end{bmatrix}+\begin{bmatrix}b_1\\b_2\end{bmatrix}=\begin{bmatrix}0\\0\end{bmatrix}
 \end{equation}
 と書き直し，
 \begin{equation}
 A\equiv\begin{bmatrix}a_{1,1}&a_{1,2}\\a_{2,1}&a_{2,2}\end{bmatrix},\,
 X\equiv\begin{bmatrix}x_1\\x_2\end{bmatrix},\,
 B\equiv\begin{bmatrix}b_1\\b_2\end{bmatrix},\,
-\Zero\equiv\begin{bmatrix}\zero\\\zero\end{bmatrix}
+\Zero\equiv\begin{bmatrix}0\\0\end{bmatrix}
 \end{equation}
 とすると，未知数 $x_1,x_2$ に関する連立線形方程式は
 \begin{equation}
@@ -166,6 +200,9 @@ AX+B=\Zero
 と書け，シンプルで美しく見える．
 演算規則をうまく調整すると，上述の連立線形方程式の解は$X=-A^{-1}B$と書ける．
 このようにして作った $A,B,X,\Zero$ を\keyword{行列}と呼ぶ．
+
+行列$A$の逆行列$A^{-1}$が存在するか否かの判定(determinant)に\keyword{行列式}という演算子が使われる．
+行列$A$の行列式は $\det A$ または$|A|$と書く．
 
 \subsection{正方行列}
 
@@ -190,7 +227,7 @@ A=\begin{bmatrix}a_{11}&a_{12}&\dots&a_{1j}&\dots&a_{1n}\\
 \begin{equation}
 [a_{ij}]+[b_{ij}]\equiv[a_{ij}+b_{ij}]
 \end{equation}
-であり，行列の零元（ゼロ行列）$\Zero$はすべての要素が$\zero$であるような行列である．
+であり，行列の零元（ゼロ行列）$\Zero$はすべての要素が$0$であるような行列である．
 
 行列$[a_{ij}]$と行列$[b_{ij}]$の積も定義されており
 \begin{equation}
@@ -198,9 +235,10 @@ A=\begin{bmatrix}a_{11}&a_{12}&\dots&a_{1j}&\dots&a_{1n}\\
 \end{equation}
 である．この定義から，積の単位元（単位行列）$\One$は
 \begin{equation}
-\One\equiv\begin{bmatrix}1&0&\dots\\
+\One\equiv\begin{bmatrix}1&0&\dots&0\\
   0&1\\
-  \vdots&&\ddots\end{bmatrix}
+  \vdots&&\ddots\\
+  0&&&1\end{bmatrix}
 \end{equation}
 でなければならないことがわかる．単位行列$\One$は$[\delta_{ij}]$とも書く．デルタ記号を使うのは歴史的理由である．
 
@@ -321,14 +359,14 @@ p_i=\langle\bvec{p},\ve_i\rangle
 
 ここで行列
 \begin{equation}
-T(\theta)\equiv\begin{bmatrix}\cos\theta&-\sin\theta\\\sin\theta&\cos\theta\end{bmatrix}
+\bop{T}(\theta)\equiv\begin{bmatrix}\cos\theta&-\sin\theta\\\sin\theta&\cos\theta\end{bmatrix}
 \end{equation}
 を導入し，ベクトルと行列を意図的に混同すると
 \begin{equation}
-\bvec{p}'=T(\theta)\bvec{p}
+\bvec{p}'=\bop{T}(\theta)\bvec{p}
 \end{equation}
-という簡潔な式が得られる．ここで行列だとか成分だとかを一切忘れて，ベクトル$\bvec{p}$に作用するものとして$T(\theta)$を捉える．
-この$T(\theta)$は\keyword{作用素}と呼ばれる．
+という簡潔な式が得られる．ここで行列だとか成分だとかを一切忘れて，ベクトル$\bvec{p}$に作用するものとして$\bop{T}(\theta)$を捉える．
+この$\bop{T}(\theta)$は\keyword{作用素}と呼ばれる．
 
 \section{複素数による2次元の回転}
 
@@ -340,19 +378,20 @@ T(\theta)\equiv\begin{bmatrix}\cos\theta&-\sin\theta\\\sin\theta&\cos\theta\end{
 \end{equation}
 を満たしてさえいればよい．もし内積の定義を都合よく選べば
 \begin{equation}
-\ve_1=\one,\,\ve_2=\im
+\ve_1=1,\,\ve_2=\im
 \end{equation}
 なる座標系を作ることが出来る．実際この座標系は\keyword{複素座標系}またはガウス座標系と呼ばれる．
-
-\subsection{回転}
-
-複素座標系では，内積 $\langle\alpha,\beta\rangle$ を次のように定義する．
+ここに内積の定義として
 \begin{equation}
 \langle\alpha,\beta\rangle\equiv\alpha^*\beta
 \end{equation}
-複素座標系における回転の作用素$U(\theta)$は次の形を取る．
+を採用した．
+
+\subsection{回転}
+
+複素座標系における回転の作用素$\bop{U}(\theta)$は次の形を取る．
 \begin{equation}
-U(\theta)=\cos\theta+\im\sin\theta
+\bop{U}(\theta)=\cos\theta+\im\sin\theta
 \end{equation}
 %
 % なぜ?
@@ -360,16 +399,16 @@ U(\theta)=\cos\theta+\im\sin\theta
 
 ...
 \begin{equation}
-\bvec{p}'=U(\theta)\bvec{p}
+\bvec{p}'=\bop{U}(\theta)\bvec{p}
 \end{equation}
 
 オイラーの公式
 \begin{equation}
-\ee^{\im\theta}=\cos\theta+\im\sin\theta
+\exp\im\theta=\cos\theta+\im\sin\theta
 \end{equation}
-を用いると，回転$T(\theta)$は
+を用いると，回転$\bop{U}(\theta)$は
 \begin{equation}
-U(\theta)=\ee^{\im\theta}
+\bop{U}(\theta)=\exp\im\theta
 \end{equation}
 とさらに簡潔に書ける．
 
@@ -389,7 +428,7 @@ U(\theta)=\ee^{\im\theta}
 \end{equation}
 としても良かったし，複素数スタイルを採用して
 \begin{equation}
-\ve_1=\one,\,
+\ve_1=1,\,
 \ve_2=\im
 \end{equation}
 としても良かった．
@@ -403,7 +442,7 @@ U(\theta)=\ee^{\im\theta}
 この場合$\ve_1$のほうは単位行列$\One$と同じであるので，
 もうひとつの$\ve_2$のほうを虚数単位$\im$に対応させて
 \begin{equation}
-\I\equiv\begin{bmatrix}0&-1\\1&0\end{bmatrix}
+\im'\equiv\begin{bmatrix}0&-1\\1&0\end{bmatrix}
 \end{equation}
 と名づけても構わない．
 %
@@ -446,9 +485,6 @@ U(\theta)=\ee^{\im\theta}
 \begin{equation}
 \bvec{p}\times\bvec{q}=\det\begin{bmatrix}\ve_1&p_1&q_1\\\ve_2&p_2&q_2\\\ve_3&p_3&q_3\end{bmatrix}
 \end{equation}
-%
-% 行列式の定義まだ
-%
 
 三重積
 \begin{equation}
@@ -459,17 +495,17 @@ U(\theta)=\ee^{\im\theta}
 \subsection{回転}
 
 3次元ユークリッド空間の回転を考える．いま3軸まわりの回転だけを考えると，それは2次元の回転と変わらない．
-3軸まわりの$\theta$回転を$T_3(\theta)$とすると
+3軸まわりの$\theta$回転を$\bop{T}_3(\theta)$とすると
 \begin{equation}
-T_3(\theta)=\begin{bmatrix}\cos\theta&-\sin\theta&0\\\sin\theta&\cos\theta&0\\0&0&1\end{bmatrix}
+\bop{T}_3(\theta)=\begin{bmatrix}\cos\theta&-\sin\theta&0\\\sin\theta&\cos\theta&0\\0&0&1\end{bmatrix}
 \end{equation}
 である．同じく2軸まわりは
 \begin{equation}
-T_2(\theta)=\begin{bmatrix}\cos\theta&0&\sin\theta\\0&1&0\\-\sin\theta&0&\cos\theta\end{bmatrix}
+\bop{T}_2(\theta)=\begin{bmatrix}\cos\theta&0&\sin\theta\\0&1&0\\-\sin\theta&0&\cos\theta\end{bmatrix}
 \end{equation}
 であり，1軸まわりは
 \begin{equation}
-T_1(\theta)=\begin{bmatrix}1&0&0\\0&\cos\theta&-\sin\theta\\0&\sin\theta&\cos\theta\end{bmatrix}
+\bop{T}_1(\theta)=\begin{bmatrix}1&0&0\\0&\cos\theta&-\sin\theta\\0&\sin\theta&\cos\theta\end{bmatrix}
 \end{equation}
 である．
 
@@ -518,9 +554,9 @@ T_1(\theta)=\begin{bmatrix}1&0&0\\0&\cos\theta&-\sin\theta\\0&\sin\theta&\cos\th
 
 パウリ行列に一工夫を加えると，クォータニオンが得られる．
 \begin{equation}
-Q=\One a+\im\sigma_3b+\im\sigma_2c+\im\sigma_1d
+\varPhi=1a+\im\sigma_3b+\im\sigma_2c+\im\sigma_1d
 \end{equation}
-なる量$Q$はクォータニオンとしての性質をすべて持つ．また $\im\sigma_3,\im\sigma_2,\im\sigma_1$ はクォータニオン単位の性質を持つ．そこで
+なる量$\varPhi$はクォータニオンとしての性質をすべて持つ．また $\im\sigma_3,\im\sigma_2,\im\sigma_1$ はクォータニオン単位の性質を持つ．そこで
 \begin{equation}
 \ve_1=\im\sigma_3,\,
 \ve_2=\im\sigma_2,\,
@@ -529,23 +565,27 @@ Q=\One a+\im\sigma_3b+\im\sigma_2c+\im\sigma_1d
 を基底ベクトルとして採用しよう．
 
 ベクトル$\bvec{p}$をベクトル$\bvec{r}$まわりに$\theta$回転させる演算子を$U(\bvec{r},\theta)$とする．
-回転後のベクトル$\bvec{p}'$は演算子$U(\bvec{r},\theta)$を用いて
+回転後のベクトル$\bvec{p}'$は演算子$\bop{U}(\bvec{r},\theta)$を用いて
 \begin{equation}
-\bvec{p}'=U^*(\bvec{r},\theta)\bvec{p}U(\bvec{r},\theta)
+\bvec{p}'=\bop{U}^*(\bvec{r},\theta)\bvec{p}\bop{U}(\bvec{r},\theta)
 \end{equation}
 のように計算できる．ここに
 \begin{equation}
-U(\theta)=\One\cos\frac{\theta}{2}+\bvec{r}\sin\frac{\theta}{2}
+\bop{U}(\theta)=1\cos\frac{\theta}{2}+\bvec{r}\sin\frac{\theta}{2}
 \end{equation}
 である．証明はオリジナル版にある．
 
+\subsection{球面線形補間}
+
+省略．
+
 \section{テンソルとスピノール}
 
-ベクトル$\bvec{p}$を成分で$p_\mu$と書いてみる．
-回転の演算子$T$も成分で$T_{\mu\nu}$と書いてみる．
+ベクトル$\bvec{p}$を成分で$p_i$と書いてみる．
+回転の演算子$\bop{T}$も成分で$T_{ij}$と書いてみる．
 ベクトルの回転は
 \begin{equation}
-p_\nu'=\sum_{\mu=1}^NT_{\mu\nu}p_\mu
+p_j'=\sum_{i=1}^NT_{ij}p_i
 \end{equation}
 である．行列の書き方を用いると次のように書き直せる．
 \begin{equation}
@@ -553,13 +593,13 @@ p_\nu'=\sum_{\mu=1}^NT_{\mu\nu}p_\mu
 \end{equation}
 または
 \begin{equation}
-\bvec{p}'=T\bvec{p}
+\bvec{p}'=\bop{T}\bvec{p}
 \end{equation}
 
-このように変換される$p_\mu$を1階の\keyword{テンソル}と呼ぶ．
+このように変換される$p_i$を1階の\keyword{テンソル}と呼ぶ．
 次のように変換されるテンソルもあり，これを2階テンソルと呼ぶ．
 \begin{equation}
-P_{\kappa\lambda}'=\sum_{\mu=1}^N\sum_{\nu=1}^NT_{\mu\kappa}T_{\nu\lambda}P_{\mu\nu}
+P_{kl}'=\sum_{i=1}^N\sum_{j=1}^NT_{ik}T_{jl}P_{ik}
 \end{equation}
 この式を行列を用いて書くと，行列の演算の非対称性から若干の工夫が必要になる．結局
 \begin{equation}
@@ -567,29 +607,75 @@ P_{\kappa\lambda}'=\sum_{\mu=1}^N\sum_{\nu=1}^NT_{\mu\kappa}T_{\nu\lambda}P_{\mu
 \end{equation}
 または
 \begin{equation}
-\bvec{P}'=T^t\bvec{P}T
+\bvec{P}'=\bop{T}^t\bvec{P}\bop{T}
 \end{equation}
 となる．
 
 繰り返すと1階テンソルとは
 \begin{equation}
-\bvec{p}'=T\bvec{p}
+\bvec{p}'=\bop{T}\bvec{p}
 \end{equation}
 と変換される量である．2階テンソルとは
 \begin{equation}
-\bvec{P}'=T^t\bvec{P}T
+\bvec{P}'=\bop{T}^t\bvec{P}\bop{T}
 \end{equation}
 と変換される量である．
 
 ここで1階テンソルはクォータニオンを使えば
 \begin{equation}
-\bvec{p}'=U^*\bvec{p}U
+\bvec{p}'=\bop{U}^*\bvec{p}\bop{U}
 \end{equation}
 と書けたことを思い出そう．では
 \begin{equation}
-\bvec{\psi}'=U\bvec{\psi}
+\bvec{\psi}'=\bop{U}\bvec{\psi}
 \end{equation}
 なる量$\bvec{\psi}$はあるだろうか．
+この$\bvec{\psi}$こそが\keyword{スピノール}である．
+
+スピノールは行列で表示できる．
+\begin{equation}
+\bvec{\psi}=\begin{bmatrix}\psi_1\\\psi_2\end{bmatrix}
+\end{equation}
+\keyword{共役スピノール}を定義しておくと，スピノールの内積が計算しやすい．
+\begin{equation}
+\bvec{\psi}^*=\begin{bmatrix}-\psi_2&\psi_1\end{bmatrix}
+\end{equation}
+こうしておけば，スピノールの内積は
+\begin{equation}
+\langle\bvec{\psi},\bvec{\phi}\rangle=\bvec{\psi}^*\bvec{\phi}
+\end{equation}
+と演算できて都合が良い．展開すると
+\begin{align}
+\langle\bvec{\psi},\bvec{\phi}\rangle&=\bvec{\psi}^*\bvec{\phi}\\
+  &=\begin{bmatrix}-\psi_2&\psi_1\end{bmatrix}\begin{bmatrix}\phi_1\\\phi_2\end{bmatrix}\\
+    &=\psi_1\phi_2-\psi_2\phi_1
+\end{align}
+であり，この量は回転に対して不変である．
+
+スピノールは$2\pi$回転で符号が入れ替わる．
+\begin{equation}
+\bvec{\psi}=-U(2\pi)\bvec{\psi}
+\end{equation}
+
+スピノールの掛け算の間にパウリ行列を挟むと楽しい．
+\begin{equation}
+p_i=\bvec{\psi}^*\sigma_i\bvec{\phi}
+\end{equation}
+このようにして出来た$p_i$は1階3元テンソルとしての変換性を示す．
+いま
+\begin{equation}
+\sigma_0\equiv\One
+\end{equation}
+を導入すると，
+\begin{align}
+\langle\bvec{\psi},\bvec{\phi}\rangle&=\bvec{\psi}^*\sigma_0\bvec{\phi}\\
+p_i&=\bvec{\psi}^*\sigma_i\bvec{\phi}
+\end{align}
+であるから$\langle\bvec{\psi},\bvec{\phi}\rangle$と$p_i$をひとつにして，4元のテンソル$p_i$ただし$i=\{0,1,2,3\}$を考えても良い．
+
+
+
+
 
 
 \chapter{群について}
