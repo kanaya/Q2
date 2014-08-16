@@ -10,6 +10,7 @@
 
 \newcommand{\bvec}[1]{\boldsymbol{#1}}
 \newcommand{\bop}[1]{\boldsymbol{#1}}
+\newcommand{\bg}[1]{\mathbf{#1}}
 
 \newcommand{\ii}{I}%{\mathbf{i}}
 \newcommand{\jj}{J}%{\mathbf{j}}
@@ -25,6 +26,11 @@
 \newcommand{\abs}[1]{\|{#1}\|}
 \newcommand{\norm}[1]{\|{#1}\|}
 \newcommand{\ve}{\bvec{e}}
+
+\newcommand{\opmaltese}{\mathop{\maltese}}
+
+\newcommand{\verysmall}{\varDelta}
+\newcommand{\inftysmall}{\delta}
 
 \title{クォータニオン入門加筆}
 \author{金谷一朗}
@@ -50,7 +56,7 @@
 ベクトルの表現として複素数，行列，クォータニオンを使うことがあるが，全て小文字のローマ文字を使う．
 例: $\bvec{a},\bvec{b},\bvec{c}.$
 \item[スピノール] スピノールは太字を使い，全て小文字のギリシャ文字を使う．
-例: $\bvec{\alpha},\bvec{\beta},\bvec{\gamma}.$
+例: $\bvec{\phi},\bvec{\chi},\bvec{\psi}.$
 \item[作用素] ベクトルに対する作用素は太字を使う．
 作用素の表現として複素数，行列，クォータニオンを使うことがあるが，全て大文字のローマ文字を使う．
 例: $\bop{A},\bop{B},\bop{C}.$
@@ -58,6 +64,10 @@
 単位行列は$\One$で，零行列は$\Zero$で表す．
 \item[基底ベクトル] 基底ベクトルは$\ve$で表す．
 \item[添字] 添字は $i,j,k$ を用いる．
+\item[集合] 集合は太字の非イタリックのローマ文字を用いる．例: $\bg{A},\bg{B},\bg{C}.$
+\item[関数] 関数はローマ字の小文字で表す．例： $f,g,h.$
+\item[微小量と無限小量] 微小な量には接頭辞として$\verysmall$を使う．例: $\verysmall\theta.$
+無限小量には接頭辞として$\inftysmall$を使う．例: $\inftysmall\theta.$
 \item[その他] ネイピア数は$e$で表す．クロネッカーのデルタは$\delta$で表す．
 円周率は$\pi$で表す．パウリ行列は$\sigma$で表す．
 角度にはギリシャ文字を使う．
@@ -627,39 +637,39 @@ P_{kl}'=\sum_{i=1}^N\sum_{j=1}^NT_{ik}T_{jl}P_{ik}
 \end{equation}
 と書けたことを思い出そう．では
 \begin{equation}
-\bvec{\psi}'=\bop{U}\bvec{\psi}
+\bvec{\phi}'=\bop{U}\bvec{\phi}
 \end{equation}
-なる量$\bvec{\psi}$はあるだろうか．
-この$\bvec{\psi}$こそが\keyword{スピノール}である．
+なる量$\bvec{\phi}$はあるだろうか．
+この$\bvec{\phi}$こそが\keyword{スピノール}である．
 
 スピノールは行列で表示できる．
 \begin{equation}
-\bvec{\psi}=\begin{bmatrix}\psi_1\\\psi_2\end{bmatrix}
+\bvec{\phi}=\begin{bmatrix}\phi_1\\\phi_2\end{bmatrix}
 \end{equation}
 \keyword{共役スピノール}を定義しておくと，スピノールの内積が計算しやすい．
 \begin{equation}
-\bvec{\psi}^*=\begin{bmatrix}-\psi_2&\psi_1\end{bmatrix}
+\bvec{\phi}^*=\begin{bmatrix}-\phi_2&\phi_1\end{bmatrix}
 \end{equation}
 こうしておけば，スピノールの内積は
 \begin{equation}
-\langle\bvec{\psi},\bvec{\phi}\rangle=\bvec{\psi}^*\bvec{\phi}
+\langle\bvec{\phi},\bvec{\chi}\rangle=\bvec{\phi}^*\bvec{\chi}
 \end{equation}
 と演算できて都合が良い．展開すると
 \begin{align}
-\langle\bvec{\psi},\bvec{\phi}\rangle&=\bvec{\psi}^*\bvec{\phi}\\
-  &=\begin{bmatrix}-\psi_2&\psi_1\end{bmatrix}\begin{bmatrix}\phi_1\\\phi_2\end{bmatrix}\\
-    &=\psi_1\phi_2-\psi_2\phi_1
+\langle\bvec{\phi},\bvec{\chi}\rangle&=\bvec{\phi}^*\bvec{\chi}\\
+  &=\begin{bmatrix}-\phi_2&\phi_1\end{bmatrix}\begin{bmatrix}\chi_1\\\chi_2\end{bmatrix}\\
+    &=\phi_1\chi_2-\phi_2\chi_1
 \end{align}
 であり，この量は回転に対して不変である．
 
 スピノールは$2\pi$回転で符号が入れ替わる．
 \begin{equation}
-\bvec{\psi}=-U(2\pi)\bvec{\psi}
+\bvec{\phi}=-U(2\pi)\bvec{\phi}
 \end{equation}
 
 スピノールの掛け算の間にパウリ行列を挟むと楽しい．
 \begin{equation}
-p_i=\bvec{\psi}^*\sigma_i\bvec{\phi}
+p_i=\bvec{\phi}^*\sigma_i\bvec{\chi}
 \end{equation}
 このようにして出来た$p_i$は1階3元テンソルとしての変換性を示す．
 いま
@@ -668,19 +678,148 @@ p_i=\bvec{\psi}^*\sigma_i\bvec{\phi}
 \end{equation}
 を導入すると，
 \begin{align}
-\langle\bvec{\psi},\bvec{\phi}\rangle&=\bvec{\psi}^*\sigma_0\bvec{\phi}\\
-p_i&=\bvec{\psi}^*\sigma_i\bvec{\phi}
+\langle\bvec{\phi},\bvec{\chi}\rangle&=\bvec{\phi}^*\sigma_0\bvec{\chi}\\
+p_i&=\bvec{\phi}^*\sigma_i\bvec{\chi}
 \end{align}
-であるから$\langle\bvec{\psi},\bvec{\phi}\rangle$と$p_i$をひとつにして，4元のテンソル$p_i$ただし$i=\{0,1,2,3\}$を考えても良い．
-
-
-
-
-
+であるから$\langle\bvec{\phi},\bvec{\chi}\rangle$と$p_i$をひとつにして，4元のテンソル$p_i$ただし$i=\{0,1,2,3\}$を考えても良い．
 
 \chapter{群について}
 
+\section{集合}
+
+\section{演算}
+
+集合$\bg{A}$の元 $a, b\in\bg{A}$ を考える．元 $a,b$ を引数に取り，集合$\bg{A}$の元を返す関数$\maltese$を考えよう．
+どういうわけか，人々は単に
+\begin{equation}
+\maltese(a,b)
+\end{equation}
+と書くよりも
+\begin{equation}
+a\opmaltese b
+\end{equation}
+と書くことを好む．また$\maltese$のことを関数ではなくて\keyword{二項演算子}と呼ぶ．
+
+さて，この二項演算子$\maltese$について，
+\begin{equation}
+a\opmaltese b\in\bg{A}
+\end{equation}
+であり，結合則
+\begin{equation}
+a\opmaltese(b\opmaltese c)=(a\opmaltese b)\opmaltese c
+\end{equation}
+が成り立ち，次のような単位元$\epsilon$があり，
+\begin{equation}
+\epsilon\opmaltese a=a\opmaltese\epsilon=a
+\end{equation}
+かつ逆元$a^{-1}$ただし
+\begin{equation}
+a^{-1}\opmaltese a=\epsilon
+\end{equation}
+が存在するとき，集合$\bg{A}$と演算子$\maltese$をあわせて\keyword{群}と呼ぶ．
+
+\section{代数}
+
+環．
+
+
 \chapter{リー群（リー代数）について}
+
+\section{2次元の微小回転}
+
+これまで見てきたとおり，2次元の$\theta$回転は，
+ベクトルを複素数で表したとき
+\begin{equation}
+p'_1+\im p'_2=(\cos\theta+\im\sin\theta)(p_1+\im p_2)
+\end{equation}
+であるから，回転の演算子$\bop{U}(\theta)$は
+\begin{equation}
+\bop{U}(\theta)=\cos\theta+\im\sin\theta
+\end{equation}
+と書ける．
+オイラーの公式から
+\begin{equation}
+\bop{U}(\theta)=\exp\im\theta
+\end{equation}
+と変形できる．
+
+微小な回転について考えると
+\begin{equation}
+|\verysmall\theta|\ll1
+\end{equation}
+のとき
+\begin{equation}
+\cos\verysmall\theta\simeq1,\,
+\sin\verysmall\theta\simeq\verysmall\theta
+\end{equation}
+であるから，
+微小回転$\verysmall\theta$に関しては次のように近似できる．
+\begin{equation}
+\bop{U}(\verysmall\theta)\simeq1+\im\verysmall\theta
+\end{equation}
+
+複素数ではなく行列を使う場合，回転は
+\begin{equation}
+\begin{bmatrix}p'_1\\p'_2\end{bmatrix}=\begin{bmatrix}\cos\theta&-\sin\theta\\\sin\theta&\cos\theta\end{bmatrix}\begin{bmatrix}p_1\\p_2\end{bmatrix}
+\end{equation}
+と書けた．そこで回転演算子$\bop{T}(\theta)$を
+\begin{equation}
+\bop{T}(\theta)=\begin{bmatrix}\cos\theta&-\sin\theta\\\sin\theta&\cos\theta\end{bmatrix}
+\end{equation}
+とした．
+
+微小回転$\verysmall\theta$に関しては
+\begin{equation}
+\bop{T}(\verysmall\theta)\simeq\begin{bmatrix}1&-\verysmall\theta\\\verysmall\theta&1\end{bmatrix}
+\end{equation}
+であるから，これを変形して
+\begin{align}
+\bop{T}(\verysmall\theta)&\simeq\begin{bmatrix}1&-\verysmall\theta\\\verysmall\theta&1\end{bmatrix}\\
+  &=\begin{bmatrix}1&0\\0&1\end{bmatrix}+\begin{bmatrix}0&-1\\1&0\end{bmatrix}\verysmall\theta\\
+  &=1+\im'\verysmall\theta
+\end{align}
+を得る．ここに
+\begin{equation}
+1=\begin{bmatrix}1&0\\0&1\end{bmatrix},\,
+\im'=\begin{bmatrix}0&-1\\1&0\end{bmatrix}
+\end{equation}
+を用いた．
+
+行列に関するオイラーの公式
+\begin{equation}
+\exp\im'\theta=\cos\theta+\im'\sin\theta
+\end{equation}
+を用いると，微小回転は
+\begin{equation}
+\exp\im'\verysmall\theta\simeq1+\im'\verysmall\theta
+\end{equation}
+である．
+
+\section{2次元の無限小回転}
+
+これから無限小回転を考える．回転角を$\inftysmall\theta$とする．
+\begin{equation}
+\cos\inftysmall\theta=1,\,
+\sin\inftysmall\theta=\inftysmall\theta,\,
+\exp\im\inftysmall\theta=1+\im\inftysmall\theta
+\end{equation}
+であるから，
+\begin{align}
+\bop{U}(\inftysmall\theta)&=\exp\im\inftysmall\theta\\
+  &=1+\im\inftysmall\theta
+\end{align}
+
+\section{リー代数}
+
+ある行列$A$の指数関数$\exp tA$が群$\bg{G}$の元であるとする．すなわち
+\begin{equation}
+\exp tA\in\bg{G}
+\end{equation}
+であるとする．ここに$t$はパラメタである．
+
+
+
+
 
 \chapter{束について}
 
