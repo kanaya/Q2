@@ -6,6 +6,8 @@
 \newcommand{\ckeyword}[1]{\textbf{#1}}
 \newcommand{\cid}[1]{\textit{#1}}
 
+\newcommand{\ccode}[1]{\texttt{#1}}
+
 \newcommand{\keyword}[1]{\emph{#1}}
 
 \newcommand{\bvec}[1]{\boldsymbol{#1}}
@@ -28,6 +30,7 @@
 \newcommand{\ve}{\bvec{e}}
 
 \newcommand{\opmaltese}{\mathop{\maltese}}
+\newcommand{\tr}{\mathrm{tr}}
 
 \newcommand{\verysmall}{\varDelta}
 \newcommand{\inftysmall}{\delta}
@@ -403,8 +406,7 @@ p_i=\langle\bvec{p},\ve_i\rangle
 %
 % なぜ?
 %
-
-...
+ベクトル$\bvec{p}$を回転させるとは，作用素$\bop{U}(t)$は次のように左から掛けることで表現される．
 \begin{equation}
 \bvec{p}'=\bop{U}(t)\bvec{p}
 \end{equation}
@@ -524,7 +526,7 @@ p_i=\langle\bvec{p},\ve_i\rangle
 \begin{equation}
 \bvec{p}'=\bvec{p}\cos t+\bvec{r}\times\bvec{p}\sin t+\bvec{r}\langle\bvec{r},\bvec{p}\rangle(1-\cos t)
 \end{equation}
-である．ただし$\norm{\bvec{r}}=1$を仮定した．証明はオリジナル版を参照．
+である．ただし$\norm{\bvec{r}}=1$を仮定した．証明はオリジナル版を参照．\footnote{この式はロドリゲスの式と呼ばれている．}
 
 \section{クォータニオンによる3次元の回転}
 
@@ -555,7 +557,20 @@ p_i=\langle\bvec{p},\ve_i\rangle
 \end{equation}
 この性質は，すなわち通常の行列積がベクトルの外積として使えることを示す．
 
-内積...
+各々の行列の内積が$1$になるように，内積を定義することができる．
+内積の定義を
+\begin{equation}
+\langle A,B\rangle\equiv\frac{1}{2}\tr \left(A^tB\right)
+\end{equation}
+ここに$\tr$は対角成分の総和をとる演算子で，トレースと呼ばれる．
+この定義を用いると，パウリ行列の各々の内積は$0$になる．
+\begin{equation}
+\langle\sigma_1,\sigma_2\rangle=\langle\sigma_2,\sigma_3\rangle=\langle\sigma_3,\sigma_1\rangle=0
+\end{equation}
+一方で，同じ行列同士の内積は$1$になる．
+\begin{equation}
+\langle\sigma_1,\sigma_1\rangle=\langle\sigma_2,\sigma_2\rangle=\langle\sigma_3,\sigma_3\rangle=1
+\end{equation}
 
 パウリ行列を3次元ベクトルの基底にすることができる．
 \begin{equation}
@@ -586,7 +601,7 @@ p_i=\langle\bvec{p},\ve_i\rangle
 \end{equation}
 のように計算できる．ここに
 \begin{equation}
-\bop{U}(t)=1\cos\frac{t}{2}+\bvec{r}\sin\frac{t}{2}
+\bop{U}(\bvec{r},t)=1\cos\frac{t}{2}+\bvec{r}\sin\frac{t}{2}
 \end{equation}
 である．証明はオリジナル版にある．
 
@@ -688,117 +703,281 @@ p_i&=\bvec{\phi}^*\sigma_i\bvec{\chi}
 \end{align}
 であるから$\langle\bvec{\phi},\bvec{\chi}\rangle$と$p_i$をひとつにして，4元のテンソル$p_i$ただし$i=\{0,1,2,3\}$を考えても良い．
 
-\chapter{群について}
-
-\section{群}
-
-集合$\bg{A}$の元 $a, b\in\bg{A}$ を考える．元 $a,b$ を引数に取り，集合$\bg{A}$の元を返す関数$\maltese$を考えよう．
-どういうわけか，人々は単に
-\begin{equation}
-\maltese(a,b)
-\end{equation}
-と書くよりも
-\begin{equation}
-a\opmaltese b
-\end{equation}
-と書くことを好む．また$\maltese$のことを関数ではなくて\keyword{二項演算子}と呼ぶ．
-
-さて，この二項演算子$\maltese$について，
-\begin{equation}
-a\opmaltese b\in\bg{A}
-\end{equation}
-であり，結合則
-\begin{equation}
-a\opmaltese(b\opmaltese c)=(a\opmaltese b)\opmaltese c
-\end{equation}
-が成り立ち，次のような単位元$\epsilon$があり，
-\begin{equation}
-\epsilon\opmaltese a=a\opmaltese\epsilon=a
-\end{equation}
-かつ逆元$a^{-1}$ただし
-\begin{equation}
-a^{-1}\opmaltese a=\epsilon
-\end{equation}
-が存在するとき，集合$\bg{A}$と演算子$\maltese$をあわせて\keyword{群}と呼ぶ．
+\chapter{群と代数}
 
 \section{回転群}
 
-回転の演算子は群を作る．2次元の回転を考える．
-いま演算子$\maltese$を回転の合成と考えると，
-\begin{equation}
-\bop{T}(t)\opmaltese\bop{T}(u)\equiv\bop{T}(t+u)
-\end{equation}
-と定義できる．
+2次元の回転の合成を考えてみよう．原点わまりの$t$回転を$\bop{T}(t)$とする．
+また回転$\bop{T}(t)$ともう一つの回転$\bop{T}(u)$の合成（連続させた回転）を
+$\bop{T}(u)\opmaltese\bop{T}(t)$とする．
 
-結合則が成り立つ．
+まず$t$回転させて続いて$u$回転させるのと，
+一気に$t+u$回転させるのは同じことなので，
+\begin{equation}
+\bop{T}(u)\opmaltese\bop{T}(t)=\bop{T}(t+u)
+\end{equation}
+が成り立つ．
+この式の左辺をインタフェース，右辺を実装とみなしてみよう．
+
+2項演算子のままだと記述が不便なので，関数ぽく書いてみることにする．
+\begin{equation}
+\maltese(\bop{T}(u),\bop{T}(t))=\bop{T}(t+u)
+\end{equation}
+これは$\bop{A}\opmaltese\bop{B}$を$\maltese(\bop{A},\bop{B})$と書いただけで，意味は同じである．
+
+さて，回転を表す\cxx クラスを \ccode{rot2d} としてみよう．クラス \ccode{rot2d} の二つのインスタンスから
+合成された新しい \ccode{rot2d} インスタンスを返すコンストラクタは次のようになるだろう．
+
+\begin{verbatim}
+class rot2d {
+  private:
+    double t;
+  public:
+    rot2d(double _t): t(_t) { }
+    rot2d(const rot2d &a, const rot2d &b) {
+      t = a.t + b.t;
+    }
+  // ...
+};
+\end{verbatim}
+
+このコンストラクタ \ccode{rot2d(const rot2d \&, const rot2d \&)} こそが合成の関数$\maltese$なのである．
+
+さて，この合成の演算子$\maltese$には次のような結合則が成り立つ．
 \begin{align}
 \bop{T}(t)\opmaltese(\bop{T}(u)\opmaltese\bop{T}(v))&=(\bop{T}(t)\opmaltese(\bop{T}(u))\opmaltese\bop{T}(v)\\
   &=\bop{T}(t+u+v)
 \end{align}
+これは \ccode{rot2d(rot2d(a, b), rot2d(c))} と \ccode{rot2d(rot2d(a), rot2d(b, c))} が
+同じ意味のインスタンスを生成するのと同じことである．
 
-単位元がある．
+ところで，回転には「何もしない」回転もある．原点周り$0$の回転だ．回転$\bop{T}(0)$は何もしないから，
+次式が成り立つ．
 \begin{equation}
 \bop{T}(0)\opmaltese\bop{T}(t)=\bop{T}(t)\opmaltese\bop{T}(0)=\bop{T}(t)
 \end{equation}
+回転$\bop{T}(0)$は\cxx コードでは \ccode{rot2d(0)} に相当する．
+次のようなデフォルトコンストラクタにしても良いかもしれない．
 
-逆元がある．
+\begin{verbatim}
+class rot2d {
+  // ...
+  public:
+    rot2d(): t(0) { } // 何もしない回転を作る
+  // ...
+};
+\end{verbatim}
+
+回転$\bop{T}(t)$には逆回転$\bop{T}(-t)$がある．
 \begin{equation}
 \bop{T}(-t)\opmaltese\bop{T}(t)=\bop{T}(0)
 \end{equation}
+逆回転を表す特別な記号を発明しておこう．
+\begin{equation}
+\bop{T}^{-}(t)\equiv\bop{T}(-t)
+\end{equation}
+左辺をインタフェース，右辺を実装と考えると，回転角度$t$の符号を入れ替えるというディテールからインタフェースを隠すことができる．
+\cxx での実装は次のようになるだろう．
 
-というわけで回転の演算子$\bop{T}$と合成の演算子$\maltese$はひとつの群なのである．
+\begin{verbatim}
+class rot2d {
+  // ...
+  public:
+    rot2d inverse() const { return rot2d(-t); }
+  // ...
+};
+\end{verbatim}
 
+メンバ関数 \ccode{inverse} は自身の逆回転を新たに生成して返す．
 
+このように，合成の規則があり，結合則が成り立ち，「何もしない」演算子があり，逆演算子があるものを，\keyword{群}と呼ぶ．
+回転の演算子$\bop{T}$と合成の演算子$\maltese$はひとつの群なのである．
+何もしない演算子は単位元，逆演算子を逆元と呼ぶ．なぜ元と呼ぶかというと，
+回転 $\bop{T}(t)$ や $\bop{T}(u)$ のような一つ一つの演算子を集めた $\bg{T}\equiv\{\bop{T}(t_1),\bop{T}(t_2),\dots\}$ という集合を考えるからである．
+
+このように回転を表す群を\keyword{回転群}と呼ぶ．
+
+\section{群}
+
+改めて群について考える．
+
+集合$\bg{A}$の元 $a_1,a_2\in\bg{A}$ を考える．元 $a_1,a_2$ を引数に取り，
+集合$\bg{A}$の元を返す関数$\maltese$を考えよう．
+どういうわけか，人々は単に
+\begin{equation}
+\maltese(a_1,a_2)
+\end{equation}
+と書くよりも
+\begin{equation}
+a_1\opmaltese a_2
+\end{equation}
+と書くことを好む．また$\maltese$のことを関数ではなくて\keyword{中置演算子}と呼ぶ．
+いずれにせよ，2引数関数を中置演算子として書くのは単なるシンタックスシュガーである．
+
+さて，この演算子$\maltese$について，
+\begin{equation}
+a_1\opmaltese a_2\in\bg{A}
+\end{equation}
+であり，結合則
+\begin{equation}
+a_1\opmaltese(a_2\opmaltese a_3)=(a_1\opmaltese a_2)\opmaltese a_3
+\end{equation}
+が成り立ち，次のような単位元$\epsilon$があり，
+\begin{equation}
+\epsilon\opmaltese a_1=a_1\opmaltese\epsilon=a_1
+\end{equation}
+かつ逆元$a_1^{-}$ただし
+\begin{equation}
+a_1^{-}\opmaltese a_1=\epsilon
+\end{equation}
+が存在するとき，集合$\bg{A}$と演算子$\maltese$をあわせて群と呼ぶのであった．
+この演算子は「関係」とも呼ぶ．
+
+例えば，整数全体からなる集合$\mathbb{Z}$は加算演算子$+$とあわせて群を作っている．
+確かめてみると，
+\begin{enumerate}
+\item $a,b\in\mathbb{Z}$ のとき $a+b\in\mathbb{Z}$ である
+\item $a+(b+c)=(a+b)+c$ である
+\item $0+a=a+0=a$なる単位元$0$がある
+\item $a^{-}+a=0$なる逆元$a^{-}$がある
+\end{enumerate}
+である．ちなみに加算に関して言うと，$a^{-}$は通常の数学では$-a$と書く．
 
 \section{代数}
 
-環．
+群の条件をおさらいしておこう．群とは，ある集合$\bg{A}$とその集合の元に対して
+定義されている演算子（2引数関数，関係）$\maltese$について，
+\begin{enumerate}
+\item $a,b\in\bg{A}$ について $a\opmaltese b\in\bop{A}$　である
+\item 演算子$\maltese$について結合則が成り立つ
+\item 演算子$\maltese$に関する単位元がある
+\item 演算子$\maltese$に関する逆元がある
+\end{enumerate}
+の条件が揃っているものを指す．このうち，条件1から3までだけを満たすものを\keyword{モノイド}または\keyword{単位的半群}，
+条件1から2までだけを満たすものを\keyword{半群}と呼ぶ．
+
+いま，集合$\bg{A}$にもうひとつの演算子$\bullet$が定義されていたとする．
+この演算子$\bullet$と集合$\bg{A}$がモノイドを作るとする．
+つまり，
+\begin{equation}
+a_1\bullet a_2\in\bg{A}
+\end{equation}
+であり，結合則
+\begin{equation}
+a_1\bullet(a_2\bullet a_3)=(a_1\bullet a_2)\bullet a_3
+\end{equation}
+が成り立ち，次のような単位元$\varepsilon$ただし
+\begin{equation}
+\varepsilon\bullet a_1=a_1\bullet\varepsilon=a_1
+\end{equation}
+があるとする．
+
+そしてもし，二つの演算子$\maltese$と$\bullet$の間に次の関係
+\begin{align}
+a\bullet(b\opmaltese c)&=(a\bullet b)\opmaltese(a\bullet c)\\
+(a\opmaltese b)\bullet c&=(a\bullet c)\opmaltese(b\opmaltese c)
+\end{align}
+があれば，集合$\bg{A}$と演算子$\maltese$と$\bullet$の三つの組み合わせを，\keyword{環}または\keyword{代数}と呼ぶ．
+
+抽象的な話が続いたが，これまでの集合$\bg{A}$を例えば整数全体の集合$\mathbb{Z}$とし，
+演算子$\maltese$を加算$+$，演算子$\bullet$を乗算とすると，実数全体の集合は加算，乗算に関して
+環になっていることがわかる．このとき，加算の単位元$\epsilon$は$0$であり，
+乗算の単位元$\varepsilon$は$1$である．
 
 
-\chapter{リー群（リー代数）について}
+\chapter{リー代数}
+
+\section{テイラー展開}
+
+複素関数$f$があるとする．関数$f$は無限回微分できるとし，関数$f$を$n$回微分したものを$f^{(n)}$と書く．
+関数$f$は次のように分解（展開）できることが知られている．
+\begin{align}
+f(t)&=\sum_{i=0}^\infty\frac{f^{(i)}(a)}{i!}(t-a)^i\\
+&=f(a)+f^{(1)}(a)t+\frac{1}{2}f^{(2)}(a)t^2+\dots
+\end{align}
+これをテイラー展開または冪級数展開と呼ぶ．特に$a=0$の場合をマクローリン展開と呼ぶ．
+
+三角関数$\sin t$や$\cos t$は無限回の微分が可能なので，テイラー展開できる．結果だけ書くと次のようになる．
+\begin{align}
+\sin t&=t-\frac{1}{6}t^3+\frac{1}{120}t^5-\dots\\
+\cos t&=1-\frac{1}{2}t^2+\frac{1}{24}t^4-\dots
+\end{align}
 
 \section{行列の指数関数}
 
 実数$a$の指数関数$\exp a$は次のようにマクローリン展開できる．
-\begin{equation}
-\exp a=\sum_{i=0}^\infty\frac{a^i}{i!}
-\end{equation}
+\begin{align}
+\exp a&=\sum_{i=0}^\infty\frac{a^i}{i!}\\
+&=1+a+\frac{1}{2}a^2+\frac{1}{6}a^3+\dots
+\end{align}
 そこで行列$A$についても，指数関数$\exp A$を次のように定義する．
-\begin{equation}
-\exp A\equiv\sum_{i=0}^\infty\frac{A^i}{i!}
-\end{equation}
+\begin{align}
+\exp A&\equiv\sum_{i=0}^\infty\frac{A^i}{i!}\\
+&=1+A+\frac{1}{2}A^2+\frac{1}{6}A^3+\dots
+\end{align}
 ただし
 \begin{equation}
 A^0=1
 \end{equation}
-とする．
+とした．
 
-行列$\im'$に関してオイラーの公式が成り立つ．
+いま，行列$I$を
 \begin{equation}
-\exp\im't=1\cos t+\im'\sin t
+I\equiv\begin{bmatrix}0&-1\\1&0\end{bmatrix}
 \end{equation}
-パウリ行列$\sigma_i$に関してもオイラーの公式が成り立つ．
-\begin{equation}
-\exp\sigma_it=1\cos t+\sigma_i\sin t
-\end{equation}
-
-
-
-一例として，2次元の回転行列$\bop{T}(t)$を指数関数で描き直してみる．
+と定義しよう．この行列$I$の指数関数$\exp I$はマクローリン展開できる．
 \begin{align}
-\bop{T}(t)&=\exp \im't\\
-  &=\cos t+\im'\sin t\\
+\exp I&\equiv\sum_{i=0}^\infty\frac{I^i}{i!}\\
+&=1+I+\frac{1}{2}I^2+\frac{1}{6}I^3+\dots
+\end{align}
+ただし$1$は単位行列のことである．
+
+これで指数関数$\exp I$を単なる足し算掛け算に分解できたので，我々が普段知っている算術規則で計算できる．
+展開すると
+\begin{align}
+\exp I&=\begin{bmatrix}1&0\\0&1\end{bmatrix}+\begin{bmatrix}0&-1\\1&0\end{bmatrix}+\frac{1}{2}\begin{bmatrix}0&-1\\1&0\end{bmatrix}^2+\dots\\
+&=\begin{bmatrix}1&0\\0&1\end{bmatrix}+\begin{bmatrix}0&-1\\1&0\end{bmatrix}-\frac{1}{2}\begin{bmatrix}1&0\\0&1\end{bmatrix}+\dots
+\end{align}
+のように定数の行列が得られるのだが，パラメタ$t$を導入して$\exp It$を計算すると面白いことが起こる．
+\begin{align}
+\exp It&=\begin{bmatrix}1&0\\0&1\end{bmatrix}+\begin{bmatrix}0&-1\\1&0\end{bmatrix}t+\frac{1}{2}\begin{bmatrix}0&-1\\1&0\end{bmatrix}^2t+\frac{1}{6}\begin{bmatrix}0&-1\\1&0\end{bmatrix}^3t^3\dots\\
+&=\begin{bmatrix}1&0\\0&1\end{bmatrix}+\begin{bmatrix}0&-1\\1&0\end{bmatrix}t-\frac{1}{2}\begin{bmatrix}1&0\\0&1\end{bmatrix}t-\frac{1}{6}\begin{bmatrix}0&-1\\1&0\end{bmatrix}t^3+\dots\\
+&=\begin{bmatrix}1&0\\0&1\end{bmatrix}\left(1-\frac{1}{2}t^2+\dots\right)+\begin{bmatrix}0&-1\\1&0\end{bmatrix}\left(t-\frac{1}{6}t^3+\dots\right)\\
+&=\begin{bmatrix}1&0\\0&1\end{bmatrix}\cos t+\begin{bmatrix}0&-1\\1&0\end{bmatrix}\sin t
+\end{align}
+最後の変形で次の関係を使った．
+\begin{align}
+\cos t&=1-\frac{1}{2}t^2+\frac{1}{24}t^4-\dots\\
+\sin t&=t-\frac{1}{6}t^3+\frac{1}{120}t^5-\dots
+\end{align}
+まとめると，次の関係があることがわかる．
+\begin{equation}
+\exp It=1\cos t+I\sin t
+\end{equation}
+これは行列版オイラーの公式である．
+
+2次元の回転行列$\bop{T}(t)$を指数関数で書き直してみる．
+\begin{align}
+\bop{T}(t)&=\exp It\\
+  &=1\cos t+I\sin t\\
   &=\begin{bmatrix}1&0\\0&1\end{bmatrix}\cos t+\begin{bmatrix}0&-1\\1&0\end{bmatrix}\sin t\\
   &=\begin{bmatrix}\cos t&-\sin t\\\sin t&\cos t\end{bmatrix}
 \end{align}
-
-これはガウス平面を使った場合の回転と酷似していることがわかろう．
+この式はガウス平面を使った場合の回転と酷似していることがわかろう．
 ガウス平面では回転演算子$\bop{U}(t)$は
 \begin{align}
 \bop{U}(t)&=\exp \im t\\
   &=\cos t+\im\sin t
 \end{align}
-であった．
+であった．オイラーの公式は，実数軸からなる正規直交系と，ガウス平面とを結びつけているとも言える．
+
+% 先ほど見たように$\exp It$に関して，オイラーの公式が成り立つ．
+% 同様に計算していくと，パウリ行列$\sigma_i$に関してもオイラーの公式が成り立つ．
+% \begin{equation}
+% \exp\sigma_it=1\cos t+\sigma_i\sin t
+% \end{equation}
+
+
 
 \section{3次元の回転の指数関数表示}
 
@@ -814,12 +993,17 @@ I'_3&=\begin{bmatrix}0&1&0\\-1&0&0\\0&0&0\end{bmatrix}
 \end{align}
 である．行列$I'_i$を3次元回転の\keyword{生成子}と呼ぶ．
 
-$|\verysmall t|\ll1$のときに
+ここで三角関数のテイラー展開を思い出そう．
+\begin{align}
+\cos t&=1-\frac{1}{2}t^2+\frac{1}{24}t^4-\dots\\
+\sin t&=t-\frac{1}{6}t^3+\frac{1}{120}t^5-\dots
+\end{align}
+もし$\verysmall t$が十分小さい時，すなわち$|\verysmall t|\ll1$のときには2次以上の項を無視できるから，
 \begin{equation}
 \cos\verysmall t\simeq1,\,
 \sin\verysmall t\simeq\verysmall t
 \end{equation}
-であることを利用すると，
+であり，これを利用すると，
 \begin{align}
 \bop{T}_1(\verysmall t_1)\bop{T}_2(\verysmall t_2)\bop{T}_3(\verysmall t_3)
   &=\begin{bmatrix}1&\verysmall t_3&-\verysmall t_2\\
@@ -827,9 +1011,8 @@ $|\verysmall t|\ll1$のときに
     \verysmall t_2&-\verysmall t_1&1\end{bmatrix}\\
   &=1+\sum_{i=1}^3I'_i\verysmall t_i
 \end{align}
-となり，回転演算子を線形に出来る．
-
-
+となり，回転演算子を線形に出来る．ここで再び生成子が顔を出すが，これこそが回転の本質を表す重要な行列なのである．
+それを次に見てみよう．
 
 \section{リー代数}
 
@@ -839,46 +1022,195 @@ $|\verysmall t|\ll1$のときに
 \end{equation}
 であるとする．ここに$t$はパラメタである．
 
-例えば行列$A$として$\im'$を用いた$\exp\im't$は2次元の回転行列である．
+例えば行列$A$として$I$を用いた$\exp It$は2次元の回転行列である．
 この場合群$\bg{G}$は2次元の回転群である．
 
 行列$A$として$\I'_i$ただし $i=\{1,2,3\}$ という集合を選んだ$\exp I'_it$は3次元の回転行列の集合になる．
 この場合群$\bg{G}$は3次元の回転群である．
 
-行列$A$の集合を群$\bg{G}$の\keyword{リー代数}と呼ぶ．
+行列$A$の集合$\bg{A}$を群$\bg{G}$の\keyword{リー代数}と呼ぶ．
 
-さて $|\verysmall t|\ll1$ のとき
+非常に小さな回転を考えてみよう．2次元でも3次元でも同じなので，いまは2次元を考える．
+回転角を$\verysmall t$として，回転を表す行列を$\bop{T}(\verysmall t)$とすると，
+\begin{equation}
+\bop{T}(\verysmall t)=\exp I\verysmall t
+\end{equation}
+であった．
+% 3次元の場合も，$i$軸周りの回転は
+% \begin{equation}
+% \bop{T}_i(\verysmall t)=\exp I'_i\verysmall t
+% \end{equation}
+% と書けるのであった．
+回転前のベクトルを$\bvec{p}$，回転後のベクトルを$\bvec{p}'$とすると
 \begin{align}
 \bvec{p}'&=\bop{T}(\verysmall t)\bvec{p}\\
-  &=\exp(A\verysmall t)\bvec{p}
+  &=\exp(I\verysmall t)\bvec{p}
 \end{align}
-として，テイラー展開をすると
+なので，テイラー展開をすると
 \begin{align}
-\bvec{p}'&=(1+A\verysmall t+(\text{$\verysmall t$の2次以上の項}))\bvec{p}\\
-  &\simeq\bvec{p}+A\verysmall t\bvec{p}
+\bvec{p}'&=(1+I\verysmall t+(\text{$\verysmall t$の2次以上の項}))\bvec{p}\\
+  &\simeq\bvec{p}+I\verysmall t\bvec{p}
 \end{align}
-である．ここで
+である．
+ここで
 \begin{equation}
 \verysmall\bvec{p}\equiv\bvec{p}'-\bvec{p}
 \end{equation}
 と定義すると，
 \begin{equation}
-\verysmall\bvec{p}=\verysmall tA\bvec{p}
+\verysmall\bvec{p}=\verysmall tI\bvec{p}
 \end{equation}
-である．
+である．だいぶ見慣れた形になってきただろうか．右辺の$\verysmall t$を左辺の分母へ持っていくと次のようになる．
+\begin{equation}
+\frac{\verysmall\bvec{p}}{\verysmall t}=I\bvec{p}
+\end{equation}
 
 上式は $\verysmall t\rightarrow0$ の極限を考えると理解しやすい．すなわち
 \begin{equation}
-\frac{d}{dt}\bvec{p}=A\bvec{p}
+\frac{d\bvec{p}}{dt}=I\bvec{p}
 \end{equation}
-であり，行列$A$すなわち群$\bg{G}$のりー代数が無限小回転の構造を決定していることがわかる．liねｌ
+であり，形式的に微分演算子$d/dt$を引き出すと
+\begin{equation}
+\frac{d}{dt}\bvec{p}=I\bvec{p}
+\end{equation}
+となることから，これも全く形式的に
+\begin{equation}
+\frac{d}{dt}=I
+\end{equation}
+と言える．これをもって，「行列$I$が無限小回転の構造を決定している」と言う．
+
+行列に$I$を選んだのは全くの任意であったので，上述の議論は3次元の生成子$I'_i$についても成り立つ．
+
+一般に$\exp At\in\bg{G}$となるような行列$A$の集合$\bg{A}$を集合$\bg{G}$のリー代数と呼ぶのであった．
+群$\bg{G}$に2次元の回転群を選べば，集合$\bg{A}$の元は$I$だけである．
+群$\bg{G}$に3次元の回転群を選べば，集合$\bg{A}$の元は $I_1',I_2',I_3'$ である．
+すなわち群$\bg{G}$のリー代数が無限小回転の構造を決定していると言える．
+
+なぜリー代数と呼ぶか...
+
+
+\chapter{束}
+
+\section{冪集合}
+
+集合$\bg{S}$の元を $s_1,s_2,s_3$ とする．集合$\bg{S}$の\keyword{部分集合}とは，
+集合$\bg{S}$から任意個（0個でも良い）の元を取り出して作った集合で，次のような集合たちである．
+\begin{itemize}
+\item 空集合$\emptyset$
+\item 元が1個の集合 $\{s_1\},\{s_2\},\{s_3\}$
+\item 元が2個の集合 $\{s_1,s_2\},\{s_2,s_3\},\{s_3,s_1\}$
+\item 元の集合$\bg{S}$
+\end{itemize}
+集合$\bg{S}$のすべての部分集合を集めた集合を集合$\bg{S}$の\keyword{冪集合}と呼び$\wp(\bg{S})$と書く．
+今の例で言えば，
+\begin{equation}
+\wp(\bg{S})=\{\emptyset,\{s_1\},\{s_2\},\{s_3\},\{s_1,s_2\},\{s_2,s_3\},\{s_3,s_1\},\bg{S}\}
+\end{equation}
+である．
+
+次に，集合の「足し算」を決めておく．通常の足し算と異なるので$\uplus$という記号を使うことにしよう．
+集合$\bg{A}$と集合$\bg{B}$があるとして，
+\begin{equation}
+\bg{A}\uplus\bg{B}\equiv\bg{A}\cup\bg{B}-\bg{A}\cap\bg{B}
+\end{equation}
+と定義する．なにやら足し算を定義するのに引き算が出てきて，ごまかしのように見えるかもしれないが，
+この方が定義が簡単になるというだけなので気にしないでもらいたい．
+先に演算子$\cup$と$\cap$を説明しておくと，演算子$\cup$は二つの集合の和集合（合併，結び）を，
+演算子$\cap$は二つの集合の積集合（共通部分，交わり）を表す．
+集合の引き算$(-)$であるが，これは補集合を表す．補集合は$\bg{A}\backslash\bg{B}$とも書く．
+いずれにせよ，第1項から第2項を取り除くと考えると良い．
+
+さて，集合 $\bg{A},\bg{B}$ が冪集合$\wp(\bg{S})$の元すなわち$\bg{A},\bg{B}\in\wp(\bg{S})$であるとき，
+\begin{itemize}
+\item $\bg{A}\uplus\bg{B}\in\wp(\bg{S})$
+\item $(\bg{A}\uplus\bg{B})\uplus\bg{C}=\bg{A}\uplus(\bg{B}\uplus\bg{C})$
+\end{itemize}
+が成り立つ．また空集合$\emptyset$は$\emptyset\uplus\bg{A}=\bg{A}$のように単位元として振舞う．
+つまり，集合$\wp(\bg{S})$と演算子$\uplus$はモノイドをつくる．
+
+もう一つ演算子を導入しよう．といっても，すでにある$\cap$演算子だ．この$\cap$演算子についても
+\begin{itemize}
+\item $\bg{A}\cap\bg{B}\in\wp(\bg{S})$
+\item $(\bg{A}\cap\bg{B})\cap\bg{C}=\bg{A}\cap(\bg{B}\cap\bg{C})$
+\end{itemize}
+であり，また元の集合$\bg{S}$が$\bg{S}\cap\bg{A}=\bg{A}$のように単位元として振舞う．
+つまり，集合$\wp(\bg{S})$と演算子$\cap$はモノイドをつくる．
+
+演算子$\uplus$と$\cap$について，次の規則を設けることは差し支えない．
+\begin{align}
+\bg{A}\cap(\bg{B}\uplus\bg{C})&=(\bg{A}\cap\bg{B})\uplus(\bg{A}\cap\bg{C})\\
+(\bg{A}\uplus\bg{B})\cap\bg{C}&=(\bg{A}\cap\bg{C})\uplus(\bg{B}\cap\bg{C})
+\end{align}
+あとは逆元がそろえば，集合$\wp(\bg{S})$と演算子$\uplus,\cap$とで環ができるところなのだが，
+今回のケースは少々事情が異なる．
+
+集合$\bg{A}$に対して次のような集合$\Bar{\bg{A}}$が存在する．
+\begin{equation}
+\Bar{\bg{A}}\equiv\bg{S}-\bg{A}
+\end{equation}
+集合$\Bar{\bg{A}}$を\keyword{補元}と呼ぶ．補元はこれまでの逆元とは異なるが，補元を使うと次の性質が言える．
+\begin{align}
+\Bar{\bg{A}}\uplus\bg{A}&=\bg{S}\\
+\Bar{\bg{A}}\cap\bg{A}&=\emptyset
+\end{align}
+
+
+\section{ブール代数}
+
+\cxx には\ccode{bool}型があり，論理演算が定義されている．次のように使うことができる．
+\begin{verbatim}
+#include <iostream>
+int main() {
+  bool t = true;
+  bool f = false;
+  bool tf = t & f;
+  std::cout << "t & f == " << std::boolalpha << tf << std::endl;
+  return 0;
+}
+\end{verbatim}
+
+論理演算はプログラマにとってなじみ深いものであるが，もう一度おさらいしておこう．
+まず真を$T$，偽を$F$で表すことにする．論理積を$\wedge$で，論理和を$\vee$で表すことにしよう．
+
+論理積は次の規則に従う．
+\begin{align}
+T\wedge T&=T\\
+T\wedge F&=F\\
+F\wedge T&=F\\
+F\wedge F&=F
+\end{align}
+論理和は次の規則に従う．
+\begin{align}
+T\vee T&=T\\
+T\vee F&=T\\
+F\vee T&=T\\
+F\vee F&=F
+\end{align}
+ここで注目して欲しいのは，$T$と$F$からなる集合$\mathbb{B}$を考えたときに，
+その元$a,b\in\mathbb{B}$の二項演算の結果もまた$\mathbb{B}$の元である，
+つまり $a\wedge b\in\mathbb{B}$ かつ $a\vee b\in\mathbb{B}$ である．
+
+次に，演算$\wedge$と演算$\vee$それぞれに結合則が成り立っているかどうかを見てみる．
+値が$T$と$F$しかないので総当たりすればすぐに結論が出て，$a,b,c\in\mathbb{B}$のとき
+\begin{align}
+a\wedge(b\wedge c)&=(a\wedge b)\wedge c\\
+a\vee(b\vee c)&=(a\vee b)\vee c
+\end{align}
+であることがわかる．
+
+また論理積に関する単位元が$T$であり，論理和に関する単位元が$F$であることも容易に理解できる．
 
 
 
 
 
+---
 
-\chapter{束について}
+
+
+
+
+代数とは，特定の性質を持った集合と演算子の組み合わせのことであった．
 
 
 \end{document}
