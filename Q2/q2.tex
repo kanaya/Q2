@@ -104,7 +104,7 @@ abc&=(ab)c\\
 a+b+c&=(a+b)+c\\
   &=a+(b+c)
 \end{align}
-これを\keyword{結合則}と呼ぶ．
+これを\keyword{結合律（結合則）}と呼ぶ．
 
 和と積が混在した場合は常に積が優先される．
 \begin{equation}
@@ -115,7 +115,7 @@ ab+c=(ab)+c
 a(b+c)&=ab+ac\\
 (a+b)c&=ac+bc
 \end{align}
-これを\keyword{分配則}と呼ぶ．
+これを\keyword{分配律（分配則）}と呼ぶ．
 
 零元（ゼロ，和の単位元）と任意の元との積は常に零元である．
 \begin{equation}
@@ -124,7 +124,7 @@ a(b+c)&=ab+ac\\
 
 \subsection{複素数}
 
-実数に限らず，\keyword{複素数}も上述の6個のインタフェース，結合則，分配則に従う．
+実数に限らず，\keyword{複素数}も上述の6個のインタフェース，結合律，分配律に従う．
 複素数とは実数単位$1$の時数倍と虚数単位$\im$の実数倍との和である．
 $a,b$を実数とすると，$\alpha=1 a+\im b$が複素数の一般形である．
 
@@ -743,7 +743,7 @@ class rot2d {
 
 このコンストラクタ \ccode{rot2d(const rot2d \&, const rot2d \&)} こそが合成の関数$\bullet$なのである．
 
-さて，この合成の演算子$\bullet$には次のような結合則が成り立つ．
+さて，この合成の演算子$\bullet$には次のような結合律が成り立つ．
 \begin{align}
 \bop{T}(t)\bullet(\bop{T}(u)\bullet\bop{T}(v))&=(\bop{T}(t)\bullet(\bop{T}(u))\bullet\bop{T}(v)\\
   &=\bop{T}(t+u+v)
@@ -790,7 +790,7 @@ class rot2d {
 
 メンバ関数 \ccode{inverse} は自身の逆回転を新たに生成して返す．
 
-このように，合成の規則があり，結合則が成り立ち，「何もしない」演算子があり，逆演算子があるものを，\keyword{群}と呼ぶ．
+このように，合成の規則があり，結合律が成り立ち，「何もしない」演算子があり，逆演算子があるものを，\keyword{群}と呼ぶ．
 回転の演算子$\bop{T}$と合成の演算子$\bullet$はひとつの群なのである．
 何もしない演算子は単位元，逆演算子を逆元と呼ぶ．なぜ元と呼ぶかというと，
 回転 $\bop{T}(t)$ や $\bop{T}(u)$ のような一つ一つの演算子を集めた $\bg{T}\equiv\{\bop{T}(t_1),\bop{T}(t_2),\dots\}$ という集合を考えるからである．
@@ -818,7 +818,7 @@ a_1\bullet a_2
 \begin{equation}
 a_1\bullet a_2\in\bg{A}
 \end{equation}
-であり，結合則
+であり，結合律
 \begin{equation}
 a_1\bullet(a_2\bullet a_3)=(a_1\bullet a_2)\bullet a_3
 \end{equation}
@@ -849,7 +849,7 @@ a_1^{-}\bullet a_1=\epsilon
 定義されている演算子（2引数関数，関係）$\bullet$について，
 \begin{enumerate}
 \item $a,b\in\bg{A}$ について $a\bullet b\in\bop{A}$　である
-\item 演算子$\bullet$について結合則が成り立つ
+\item 演算子$\bullet$について結合律が成り立つ
 \item 演算子$\bullet$に関する単位元がある
 \item 演算子$\bullet$に関する逆元がある
 \end{enumerate}
@@ -862,7 +862,7 @@ a_1^{-}\bullet a_1=\epsilon
 \begin{equation}
 a_1\opmaltese a_2\in\bg{A}
 \end{equation}
-であり，結合則
+であり，結合律
 \begin{equation}
 a_1\opmaltese(a_2\opmaltese a_3)=(a_1\opmaltese a_2)\opmaltese a_3
 \end{equation}
@@ -877,7 +877,7 @@ a_1\opmaltese(a_2\opmaltese a_3)=(a_1\opmaltese a_2)\opmaltese a_3
 a\bullet(b\opmaltese c)&=(a\bullet b)\opmaltese(a\bullet c)\\
 (a\opmaltese b)\bullet c&=(a\bullet c)\opmaltese(b\bullet c)
 \end{align}
-があれば（これを\keyword{分配則}と呼ぶ），
+があれば（これを\keyword{分配律}と呼ぶ），
 集合$\bg{A}$と演算子$\bullet$と$\opmaltese$の三つの組み合わせを，\keyword{環}または\keyword{代数}と呼ぶ．
 
 抽象的な話が続いたが，これまでの集合$\bg{A}$を例えば整数全体の集合$\mathbb{Z}$とし，
@@ -1137,27 +1137,26 @@ I'_3&=\begin{bmatrix}0&1&0\\-1&0&0\\0&0&0\end{bmatrix}
 であり，また元の集合$\bg{S}$が$\bg{S}\cap\bg{A}=\bg{A}$のように単位元として振舞う．
 つまり，集合$\wp(\bg{S})$と演算子$\cap$はモノイドをつくる．
 
-演算子$\uplus$と$\cap$について，次の規則（分配則）を設けることは差し支えない．
+演算子$\uplus$と$\cap$について，次の規則（分配律）を設けることは差し支えない．
 \begin{align}
 \bg{A}\cap(\bg{B}\uplus\bg{C})&=(\bg{A}\cap\bg{B})\uplus(\bg{A}\cap\bg{C})\\
 (\bg{A}\uplus\bg{B})\cap\bg{C}&=(\bg{A}\cap\bg{C})\uplus(\bg{B}\cap\bg{C})
 \end{align}
 あとは逆元がそろえば，集合$\wp(\bg{S})$と演算子$\uplus,\cap$とで環ができるところなのだが，
-今回のケースは少々事情が異なる．
+環と近い性質を持つので集合$\wp(\bg{S})$と演算子$\uplus,\cap$の組みを\keyword{半環}と呼ぶ．
 
 集合$\bg{A}$に対して次のような集合$\Bar{\bg{A}}$が存在する．
 \begin{equation}
 \Bar{\bg{A}}\equiv\bg{S}-\bg{A}
 \end{equation}
-集合$\Bar{\bg{A}}$を\keyword{補元}と呼ぶ．補元はこれまでの逆元とは異なるが，補元を使うと次の性質が言える．
+集合$\Bar{\bg{A}}$を\keyword{補元}と呼ぶ．
+補元は$\complement\bg{A}$とも書く．
+補元はこれまでの逆元とは異なるが，補元を使うと次の性質が言える．
 \begin{align}
 \Bar{\bg{A}}\uplus\bg{A}&=\bg{S}\\
 \Bar{\bg{A}}\cap\bg{A}&=\emptyset
 \end{align}
-このように，環とは違う（逆元が存在しない）が，環と近い性質を持つので集合$\wp(\bg{S})$と演算子$\uplus,\cap$の
-組みを\keyword{半環}と呼ぶ．
-
-この組み合わせ $(\wp(\bg{S}),\uplus,\cap)$ は後述するように\keyword{束}という別の代数構造を形成しており，
+この組み合わせ（半環） $(\wp(\bg{S}),\uplus,\cap)$ は後述するように\keyword{束}という別の代数構造を形成しており，
 束のことも慣例上「代数」と呼ぶので，$(\wp(\bg{S}),\uplus,\cap)$ はその研究者の名前にちなんで\keyword{ブール代数}と呼ぶ．
 
 \section{ブール型}
@@ -1195,7 +1194,7 @@ F\vee F&=F
 その元$a,b\in\mathbb{B}$の二項演算の結果もまた$\mathbb{B}$の元である，
 つまり $a\wedge b\in\mathbb{B}$ かつ $a\vee b\in\mathbb{B}$ である．
 
-次に，演算$\wedge$と演算$\vee$それぞれに結合則が成り立っているかどうかを見てみる．
+次に，演算$\wedge$と演算$\vee$それぞれに結合律が成り立っているかどうかを見てみる．
 値が$T$と$F$しかないので総当たりすればすぐに結論が出て，$a,b,c\in\mathbb{B}$のとき
 \begin{align}
 a\wedge(b\wedge c)&=(a\wedge b)\wedge c\\
@@ -1205,7 +1204,7 @@ a\vee(b\vee c)&=(a\vee b)\vee c
 
 また，論理積の単位元は$T$であり，論理和の単位元は$F$であることも読み取れる．
 
-分配則も成り立つ．
+分配律も成り立つ．
 \begin{align}
 a\wedge(b\vee c)&=(a\wedge b)\vee(a\wedge c)\\
 (a\vee b)\wedge c&=(a\wedge c)\vee(b\wedge c)
@@ -1241,6 +1240,55 @@ T&\equiv\bg{S}\\
 F&\equiv\emptyset
 \end{align}
 と決めておけば，\ccode{bool}型の演算とはブール代数そのものと一致することがわかる．
+
 \section{ブール束}
+
+集合$\bg{A}$と演算子$\sqcap,\sqcup$について，$a_1,a_2,a_3\in\bg{A}$としたときに，
+結合律
+\begin{align}
+a_1\sqcap(a_2\sqcap a_3)&=(a_1\sqcap a_2)\sqcap a_3\\
+a_1\sqcup(a_2\sqcup a_3)&=(a_1\sqcup a_2)\sqcup a_3
+\end{align}
+が成り立ち，
+演算$\sqcap,\sqcup$についてそれぞれ可換すなわち
+\begin{align}
+a_1\sqcap a_2&=a_2\sqcap a_1\\
+a_1\sqcup a_2&=a_2\sqcup a_1
+\end{align}
+であり，次の\keyword{吸収律}
+\begin{align}
+a_1\sqcap(a_1\sqcup a_2)&=a_1\\
+a_1\sqcup(a_1\sqcap a_2)&=a_1
+\end{align}
+が成り立つとき，$(\bg{A},\sqcap,\sqcup)$を束と呼ぶ．吸収律が成り立たないものを半束と呼ぶ．
+
+\ccode{bool}型の演算子$\wedge,\vee$を束の$\sqcap,\sqcup$にそれぞれ対応させると，\ccode{bool}型は
+結合律と可換律を満たしていることがわかる．さらに，吸収律をも満たしている．
+$a_1\sqcap(a_1\sqcup a_2)=a_1$について，$a_1,a_2$がそれぞれ$T,F$の場合について総当たりすると
+\begin{align}
+T\wedge(T\vee T)&=T\\
+T\wedge(T\vee F)&=T\\
+F\wedge(F\vee T)&=F\\
+F\wedge(F\vee F)&=F
+\end{align}
+であり，
+$a_1\sqcup(a_1\sqcap a_2)=a_1$についても，$a_1,a_2$がそれぞれ$T,F$の場合について総当たりすると
+\begin{align}
+T\vee(T\wedge T)&=T\\
+T\vee(T\wedge F)&=T\\
+F\vee(F\wedge T)&=F\\
+F\vee(F\wedge F)&=F
+\end{align}
+であるから，確かに\ccode{bool}型は束の条件を満たしている．
+
+さらに，\ccode{bool}型はブール代数であるから，分配律
+\begin{align}
+a_1\wedge(a_2\vee a_3)&=(a_1\wedge a_2)\vee(a_1\wedge a_3)\\
+(a_1\vee a_2)\wedge a_3&=(a_1\wedge a_3)\vee(a_2\wedge a_3)
+\end{align}
+が成り立っており，このような条件を満たす束を\keyword{分配束}と呼ぶ．
+分配束の別名が\keyword{ブール束}である．
+
+...
 
 \end{document}
