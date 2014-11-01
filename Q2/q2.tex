@@ -703,7 +703,11 @@ p_i&=\bvec{\phi}^*\sigma_i\bvec{\chi}
 \end{align}
 であるから$\langle\bvec{\phi},\bvec{\chi}\rangle$と$p_i$をひとつにして，4元のテンソル$p_i$ただし$i=\{0,1,2,3\}$を考えても良い．
 
-\chapter{群と代数}
+\chapter{群・環・体とクォータニオン}
+
+この賞では「代数的構造」にスポットライトをあてる．
+まず回転が「群」という構造を作っていることを示し，群から「環」「体」とより複雑な構造を見ていく．
+最後に，実数，複素数，そしてクォータニオンが同じ「体」のメンバであることを確認する．
 
 \section{回転群}
 
@@ -790,12 +794,16 @@ class rot2d {
 
 メンバ関数 \ccode{inverse} は自身の逆回転を新たに生成して返す．
 
-このように，合成の規則があり，結合律が成り立ち，「何もしない」演算子があり，逆演算子があるものを，\keyword{群}と呼ぶ．
-回転の演算子$\bop{T}$と合成の演算子$\bullet$はひとつの群なのである．
-何もしない演算子は単位元，逆演算子を逆元と呼ぶ．なぜ元と呼ぶかというと，
-回転 $\bop{T}(t)$ や $\bop{T}(u)$ のような一つ一つの演算子を集めた $\bg{T}\equiv\{\bop{T}(t_1),\bop{T}(t_2),\dots\}$ という集合を考えるからである．
+ここで，回転$\bop{T}$全体の集合$\bg{T}$を考えて見る．集合$\bg{T}$の元（要素）は無限にあり，
+\begin{equation}
+\bg{T}=\{\bop{T}(0),\bop{T}(t_1),\bop{T}(t_2),\dots\}
+\end{equation}
+となる．
+このような集合$\bg{T}$と，その集合の元に対する合成の規則（または関係）である演算子$\bullet$について，
+結合律が成り立ち，「何もしない」元（単位元）があり，逆元がある場合，
+組み合わせ$(\bg{T},\bullet)$を\keyword{群}と呼ぶ．
 
-このように回転を表す群を\keyword{回転群}と呼ぶ．
+この節で見たような回転を表す群を特別に\keyword{回転群}と呼ぶ．
 
 \section{群}
 
@@ -812,9 +820,9 @@ class rot2d {
 a_1\bullet a_2
 \end{equation}
 と書くことを好む．また$\bullet$のことを関数ではなくて\keyword{中置演算子}と呼ぶ．
-いずれにせよ，2引数関数を中置演算子として書くのは単なるシンタックスシュガーである．
+いずれにせよ，2引数関数を中置演算子として書くのは単なる\keyword{シンタックスシュガー}である．
 
-さて，この演算子$\bullet$について，
+さて，この演算子$\bullet$について，$a_1,a_2,a_3\in\bg{A}$のとき
 \begin{equation}
 a_1\bullet a_2\in\bg{A}
 \end{equation}
@@ -826,14 +834,13 @@ a_1\bullet(a_2\bullet a_3)=(a_1\bullet a_2)\bullet a_3
 \begin{equation}
 \epsilon\bullet a_1=a_1\bullet\epsilon=a_1
 \end{equation}
-かつ逆元$a_1^{-}$ただし
+かつ任意の元$a\in\bg{A}$の逆元$a^-$ただし
 \begin{equation}
-a_1^{-}\bullet a_1=\epsilon
+a^-\bullet a=\epsilon
 \end{equation}
-が存在するとき，集合$\bg{A}$と演算子$\bullet$をあわせて群と呼ぶのであった．
-この演算子は「関係」とも呼ぶ．
+が存在するとき，集合$\bg{A}$と演算子$\bullet$の組み$(\bg{A},\bullet)$を群と呼ぶのであった．
 
-例えば，整数全体からなる集合$\mathbb{Z}$は加算演算子$+$とあわせて群を作っている．
+例えば，整数全体からなる集合$\mathbb{Z}$は加算演算子$+$との組み$(\mathbb{Z},+)$は群を作っている．
 確かめてみると，
 \begin{enumerate}
 \item $a,b\in\mathbb{Z}$ のとき $a+b\in\mathbb{Z}$ である
@@ -843,7 +850,11 @@ a_1^{-}\bullet a_1=\epsilon
 \end{enumerate}
 である．ちなみに加算に関して言うと，$a^{-}$は通常の数学では$-a$と書く．
 
-\section{代数}
+加算に関して言えば$a+b=b+a$と，二項演算子の前後を入れ替えても結果は等しい．
+これを\keyword{可換律}が成り立っていると呼び，
+可換律の成り立つ群を\keyword{可換群}または\keyword{加法群}または\keyword{アーベル群}と呼ぶ．
+
+\section{環と代数}
 
 群の条件をおさらいしておこう．群とは，ある集合$\bg{A}$とその集合の元に対して
 定義されている演算子（2引数関数，関係）$\bullet$について，
@@ -857,36 +868,80 @@ a_1^{-}\bullet a_1=\epsilon
 条件1から2までだけを満たすものを\keyword{半群}と呼ぶ．
 
 いま，集合$\bg{A}$にもうひとつの演算子$\opmaltese$が定義されていたとする．
-この演算子$\opmaltese$と集合$\bg{A}$がモノイドを作るとする．
-つまり，
-\begin{equation}
-a_1\opmaltese a_2\in\bg{A}
-\end{equation}
-であり，結合律
-\begin{equation}
-a_1\opmaltese(a_2\opmaltese a_3)=(a_1\opmaltese a_2)\opmaltese a_3
-\end{equation}
-が成り立ち，次のような単位元$\varepsilon$ただし
-\begin{equation}
-\varepsilon\opmaltese a_1=a_1\opmaltese\varepsilon=a_1
-\end{equation}
-があるとする．
-
-そしてもし，二つの演算子$\bullet$と$\opmaltese$の間に次の関係
+そして，もし組み合わせ$(\bg{A},\bullet)$が可換群であり，$(\bg{A},\opmaltese)$がモノイドであり，
+二つの演算子$\bullet$と$\opmaltese$の間に次の関係（これを\keyword{分配律}と呼ぶ）
 \begin{align}
-a\bullet(b\opmaltese c)&=(a\bullet b)\opmaltese(a\bullet c)\\
-(a\opmaltese b)\bullet c&=(a\bullet c)\opmaltese(b\bullet c)
+a\opmaltese(b\bullet c)&=(a\opmaltese b)\bullet(a\opmaltese c)\\
+(a\bullet b)\opmaltese c&=(a\opmaltese c)\bullet(b\opmaltese c)
 \end{align}
-があれば（これを\keyword{分配律}と呼ぶ），
-集合$\bg{A}$と演算子$\bullet$と$\opmaltese$の三つの組み合わせを，\keyword{環}または\keyword{代数}と呼ぶ．
+がある場合，組み合わせ$(\bg{A},\bullet,\opmaltese)$を\keyword{環}と呼ぶ．
+環はしばしば\keyword{代数}とも呼ばれる．（環以外にも代数と呼ばれる構造はあり，それが本書の最後に述べる束である．）
 
 抽象的な話が続いたが，これまでの集合$\bg{A}$を例えば整数全体の集合$\mathbb{Z}$とし，
-演算子$\opmaltese$を加算$+$，演算子$\bullet$を乗算とすると，実数全体の集合は加算，乗算に関して
+演算子$\opmaltese$を乗算，演算子$\bullet$を加算とすると，実数全体の集合は加算，乗算に関して
 環になっていることがわかる．このとき，加算の単位元$\epsilon$は$0$であり，
 乗算の単位元$\varepsilon$は$1$である．
 
+\section{体}
+
+ある代数的構造すなわち集合$\bg{A}$と演算子$\bullet,\opmaltese$の組み合わせ$(\bg{A},\bullet,\opmaltese)$について，
+\begin{itemize}
+\item 演算子$\bullet$に関して可換群をなす
+\item 演算子$\bullet$と$\opmaltese$の間に分配律が成り立つ
+\item 演算子$\opmaltese$に関してモノイドをなす
+\end{itemize}
+であるとき，組み合わせ$(\bg{A},\bullet,\opmaltese)$を環と呼ぶのであった．
+ここで最後の条件を少し厳しくして，
+\begin{itemize}
+\item 演算子$\bullet$に関して可換群をなす
+\item 演算子$\bullet$と$\opmaltese$の間に分配律が成り立つ
+\item 演算子$\opmaltese$に関して群をなす（ただし演算$\bullet$の単位元に関しては逆元が無くても良い）
+\end{itemize}
+とした場合，組み合わせ$(\bg{A},\bullet,\opmaltese)$を\keyword{体}と呼ぶ．
+
+整数とその加算，乗算の組み合わせ$(\mathbb{Z},+,\cdot)$は環ではあるが，体ではない．
+これは乗法$\cdot$に関する逆元がないからである．例えば$2$は整数であり，その乗法単位元は$1$だが，
+$\frac{1}{2}$は整数ではないので，$(\mathbb{Z},+,\cdot)$は体としての性質を満たしていない．
+
+一方で，実数とその加算，乗算の組み合わせ$(\mathbb{R},+,\cdot)$は体である．
+むしろ，実数の性質を抽象化したものが体と言っても良いだろう．
+
+複素数$\mathbb Z$とその加算，乗算の組み合わせ$(\mathbb{Z},+,\cdot)$もまた体である．
+そして，我らがクォータニオンもまた体である．
+
+\subsection{四元数体}
+
+クォータニオンは体のひとつである．クォータニオンのことを四元数体と言う．
+体の性質とは，代数的構造$(\bg{A},\bullet,\opmaltese)$について
+\begin{itemize}
+\item 演算子$\bullet$に関して可換群をなす
+\item 演算子$\bullet$と$\opmaltese$の間に分配律が成り立つ
+\item 演算子$\opmaltese$に関して群をなす（ただし演算$\bullet$の単位元に関しては逆元が無くても良い）
+\end{itemize}
+が成り立つことであった．
+
+ここで，クォータニオン全体からなる集合$\mathbb{Q}$を考え，これの加算$+$と乗算$\cdot$からなる
+組み合わせ$(\mathbb{Q},+,\cdot)$は，
+\begin{itemize}
+\item 加算($+$)に関して可換群をなす
+\item 加算($+$)と乗算($\cdot$)の間に分配律が成り立つ
+\item 乗算($\cdot$)に関して群をなす（ただし$0$に関しては逆元が無い）
+\end{itemize}
+を満たしている．
+
+実数，複素数が乗算に関して可換群を作っているのに対し，クォータニオンの乗算は可換ではない．
+これをもって，クォータニオンの作る体を\keyword{斜体}と呼ぶこともある．
+
+これが，クォータニオンがちゃんと「数」の仲間であることの，理論的な裏付け（後付け）である．
+
 
 \chapter{リー代数}
+
+この章では，回転の「舞台裏」であるリー代数について紹介する．
+リー代数は無限小の回転を決定している構造のことである．
+2次元の場合，$2\times2$行列でも複素数でも回転を表現できた．
+3次元の場合，$3\times3$行列でもクォータニオンでも回転を表現できた．
+その背後を統一的に説明するのがリー代数なのである．
 
 \section{テイラー展開}
 
@@ -903,6 +958,15 @@ f(t)&=\sum_{i=0}^\infty\frac{f^{(i)}(a)}{i!}(t-a)^i\\
 \sin t&=t-\frac{1}{6}t^3+\frac{1}{120}t^5-\dots\\
 \cos t&=1-\frac{1}{2}t^2+\frac{1}{24}t^4-\dots
 \end{align}
+
+テイラー展開のご利益は，関数を加算乗算に分解できるだけでなく，パラメタ$t$が非常に小さい時に顕著になる．
+パラメタ$t$が非常に小さい事を強調するために$\Delta t$と書くことにしよう．
+パラメタ$\Delta t$が$|\Delta t|\ll1$とすると，$\Delta t^2\simeq0$とみなせるから，先ほどの三角関数
+\begin{align}
+\sin\Delta t&\simeq\Delta t\\
+\cos\Delta t&\simeq1
+\end{align}
+とみなせるのである．
 
 \section{行列の指数関数}
 
@@ -977,7 +1041,6 @@ I\equiv\begin{bmatrix}0&-1\\1&0\end{bmatrix}
 % \begin{equation}
 % \exp\sigma_it=1\cos t+\sigma_i\sin t
 % \end{equation}
-
 
 
 \section{3次元の回転の指数関数表示}
@@ -1086,11 +1149,21 @@ I'_3&=\begin{bmatrix}0&1&0\\-1&0&0\\0&0&0\end{bmatrix}
 群$\bg{G}$に2次元の回転群を選べば，集合$\bg{A}$の元は$I$だけである．
 群$\bg{G}$に3次元の回転群を選べば，集合$\bg{A}$の元は $I_1',I_2',I_3'$ である．
 すなわち群$\bg{G}$のリー代数が無限小回転の構造を決定していると言える．
+無限小回転の構造と言うと長ったらしいが，ようするに回転角による微分と思えば良い．
+
+\section{回転の舞台裏}
 
 なぜリー代数と呼ぶか...
 
 
 \chapter{束}
+
+プログラミング言語にはたいてい論理演算のための型や演算子がある．
+\cxx 言語で言えば\ccode{bool}（ブール）型だ．
+ディジタルコンピュータは内部では論理演算しか扱えないから，
+ここまで紹介してきた数学も，実装レベルでは全て論理演算によてシミュレートされている．
+この論理演算に関しても深い数学構造がある．それが「ブール束」と呼ばれる構造だ．
+その構造に最後に触れることにしよう．
 
 \section{ブール代数}
 
@@ -1120,6 +1193,7 @@ I'_3&=\begin{bmatrix}0&1&0\\-1&0&0\\0&0&0\end{bmatrix}
 演算子$\cap$は二つの集合の積集合（共通部分，交わり）を表す．
 集合の引き算$(-)$であるが，これは補集合を表す．補集合は$\bg{A}\setminus\bg{B}$とも書く．
 いずれにせよ，第1項から第2項を取り除くと考えると良い．
+（計算機科学の言葉で言えば，演算$\uplus$はエクスクルーシブ・オアである．）
 
 さて，集合 $\bg{A},\bg{B}$ が冪集合$\wp(\bg{S})$の元すなわち$\bg{A},\bg{B}\in\wp(\bg{S})$であるとき，
 \begin{itemize}
@@ -1127,15 +1201,15 @@ I'_3&=\begin{bmatrix}0&1&0\\-1&0&0\\0&0&0\end{bmatrix}
 \item $(\bg{A}\uplus\bg{B})\uplus\bg{C}=\bg{A}\uplus(\bg{B}\uplus\bg{C})$
 \end{itemize}
 が成り立つ．また空集合$\emptyset$は$\emptyset\uplus\bg{A}=\bg{A}$のように単位元として振舞う．
-つまり，集合$\wp(\bg{S})$と演算子$\uplus$はモノイドをつくる．
+つまり，集合$\wp(\bg{S})$と演算子$\uplus$の組み$(\wp(\bg{S}),\uplus)$はモノイドをつくる．
 
-もう一つ演算子を導入しよう．といっても，すでにある$\cap$演算子だ．この$\cap$演算子についても
+もう一つ演算子を導入しよう．といっても，すでにある積集合演算子$\cap$だ．この$\cap$についても
 \begin{itemize}
 \item $\bg{A}\cap\bg{B}\in\wp(\bg{S})$
 \item $(\bg{A}\cap\bg{B})\cap\bg{C}=\bg{A}\cap(\bg{B}\cap\bg{C})$
 \end{itemize}
 であり，また元の集合$\bg{S}$が$\bg{S}\cap\bg{A}=\bg{A}$のように単位元として振舞う．
-つまり，集合$\wp(\bg{S})$と演算子$\cap$はモノイドをつくる．
+つまり，集合$\wp(\bg{S})$と演算子$\cap$の組み$(\wp(\bg{S}),\cap)$はモノイドをつくる．
 
 演算子$\uplus$と$\cap$について，次の規則（分配律）を設けることは差し支えない．
 \begin{align}
@@ -1143,7 +1217,7 @@ I'_3&=\begin{bmatrix}0&1&0\\-1&0&0\\0&0&0\end{bmatrix}
 (\bg{A}\uplus\bg{B})\cap\bg{C}&=(\bg{A}\cap\bg{C})\uplus(\bg{B}\cap\bg{C})
 \end{align}
 あとは逆元がそろえば，集合$\wp(\bg{S})$と演算子$\uplus,\cap$とで環ができるところなのだが，
-環と近い性質を持つので集合$\wp(\bg{S})$と演算子$\uplus,\cap$の組みを\keyword{半環}と呼ぶ．
+環と近い性質を持つので集合$\wp(\bg{S})$と演算子$\uplus,\cap$の組み$(\wp(\bg{S}),\uplus,\cap)$を\keyword{半環}と呼ぶ．
 
 集合$\bg{A}$に対して次のような集合$\Bar{\bg{A}}$が存在する．
 \begin{equation}
@@ -1156,8 +1230,9 @@ I'_3&=\begin{bmatrix}0&1&0\\-1&0&0\\0&0&0\end{bmatrix}
 \Bar{\bg{A}}\uplus\bg{A}&=\bg{S}\\
 \Bar{\bg{A}}\cap\bg{A}&=\emptyset
 \end{align}
-この組み合わせ（半環） $(\wp(\bg{S}),\uplus,\cap)$ は後述するように\keyword{束}という別の代数構造を形成しており，
-束のことも慣例上「代数」と呼ぶので，$(\wp(\bg{S}),\uplus,\cap)$ はその研究者の名前にちなんで\keyword{ブール代数}と呼ぶ．
+この組み合わせ（半環） $(\wp(\bg{S}),\uplus,\cap)$ は
+後述するように\keyword{ブール束}という環とは別の代数構造を形成している．
+束のことも慣例上「代数」と呼ぶので，ブール束は\keyword{ブール代数}とも呼ぶ．
 
 \section{ブール型}
 
@@ -1174,7 +1249,7 @@ int main() {
 
 論理演算はプログラマにとってなじみ深いものであるが，もう一度おさらいしておこう．
 まず真を$T$，偽を$F$で表すことにする．論理積を$\wedge$で，論理和を$\vee$で表すことにしよう．
-それぞれ\cxx では\ccode{\&\&}（または\ccode{and}）と\ccode{|}（または\ccode{or}）に相当する．
+それぞれ\cxx では\ccode{\&\&}（または\ccode{and}）と\ccode{||}（または\ccode{or}）に相当する．
 
 論理積は次の規則に従う．
 \begin{align}
@@ -1241,7 +1316,7 @@ F&\equiv\emptyset
 \end{align}
 と決めておけば，\ccode{bool}型の演算とはブール代数そのものと一致することがわかる．
 
-\section{ブール束}
+\section{束}
 
 集合$\bg{A}$と演算子$\sqcap,\sqcup$について，$a_1,a_2,a_3\in\bg{A}$としたときに，
 結合律
@@ -1260,7 +1335,24 @@ a_1\sqcup a_2&=a_2\sqcup a_1
 a_1\sqcap(a_1\sqcup a_2)&=a_1\\
 a_1\sqcup(a_1\sqcap a_2)&=a_1
 \end{align}
-が成り立つとき，$(\bg{A},\sqcap,\sqcup)$を束と呼ぶ．吸収律が成り立たないものを半束と呼ぶ．
+が成り立つとき，$(\bg{A},\sqcap,\sqcup)$を\keyword{束}と呼ぶ．吸収律が成り立たないものを半束と呼ぶ．
+（ここで束は英語のlatticeの訳である．なぜ断るかというと，実は別の数学用語であるbandleも日本語では束と呼ぶのだ．）
+
+ある束について，分配律すなわち
+\begin{align}
+a_1\sqcap(a_2\sqcup a_3)&=(a_1\sqcap a_2)\sqcup(a_1\sqcap a_3)\\
+(a_1\sqcap a_2)\sqcup a_3&=(a_1\sqcap a_3)\sqcup(a_2\sqcap a_3)
+\end{align}
+が成り立つとき，その束を\keyword{分配束}と呼ぶ．
+
+またある束について，$\sqcap$の単位元を$1$，$\sqcup$の単位元を$0$としたときに，元$a$に対する補元$\Bar a$すなわち
+\begin{align}
+\Bar a\sqcup a&=1\\
+\Bar a\sqcap a&=0
+\end{align}
+なる$\Bar a$が存在する場合，その束を\keyword{可補則}と呼ぶ．
+
+補元のある分配束のことをブール束またはブール代数と呼ぶ．
 
 \ccode{bool}型の演算子$\wedge,\vee$を束の$\sqcap,\sqcup$にそれぞれ対応させると，\ccode{bool}型は
 結合律と可換律を満たしていることがわかる．さらに，吸収律をも満たしている．
@@ -1281,14 +1373,16 @@ F\vee(F\wedge F)&=F
 \end{align}
 であるから，確かに\ccode{bool}型は束の条件を満たしている．
 
-さらに，\ccode{bool}型はブール代数であるから，分配律
+さらに，\ccode{bool}型は分配律
 \begin{align}
 a_1\wedge(a_2\vee a_3)&=(a_1\wedge a_2)\vee(a_1\wedge a_3)\\
 (a_1\vee a_2)\wedge a_3&=(a_1\wedge a_3)\vee(a_2\wedge a_3)
 \end{align}
-が成り立っており，このような条件を満たす束を\keyword{分配束}と呼ぶ．
-分配束の別名が\keyword{ブール束}である．
+が成り立っており，否定演算子が補元を与えると考えると分配束かつ可補束である．
+すなわち，\ccode{bool}型は厳密にブール束なのである．
 
-...
+分配律が成り立たない一般の束は，量子力学の理論的背景を支える強力なバックボーンになっている．
+この一般の束について多大な貢献をしたのは，ディジタルコンピュータの祖であるフォン・ノイマンである．
+
 
 \end{document}
