@@ -61,11 +61,15 @@
 例: $\bop{A},\bop{B},\bop{C}$．
 \item[添字] 添字は $i,j,k$ を用いる．
 \item[集合] 集合は太字の非イタリックのローマ文字を用いる．例: $\bg{A},\bg{B},\bg{C}$．
+ただし，よく知られている集合については特別な書体を用いる．
+例えば整数全体からなる集合は$\mathbb{Z}$，実数全体からなる集合は$\mathbb{R}$，
+複素数全体からなる集合は$\mathbb{C}$，クォータニオン全体からなる集合は$\mathbb{H}$を用いる．
 \item[関数] 関数はローマ字の小文字で表す．例： $f,g,h$．
 \item[微小量と無限小量] 微小な量には接頭辞として$\verysmall$を使う．例: $\verysmall t$．
 無限小量には接頭辞として$\inftysmall$を使う．例: $\inftysmall t$．
 \item[その他] ネイピア数は$e$で表す．クロネッカーのデルタは$\delta$で表す．
 円周率は$\pi$で表す．パウリ行列は$\sigma$で表す．
+レビ・チビタ記号は$\varepsilon$で表す．
 \end{description}
 
 
@@ -731,7 +735,6 @@ $\bop{T}(u)\bullet\bop{T}(t)$とする．
 
 さて，回転を表す\cxx クラスを \ccode{rot2d} としてみよう．クラス \ccode{rot2d} の二つのインスタンスから
 合成された新しい \ccode{rot2d} インスタンスを返すコンストラクタは次のようになるだろう．
-
 \begin{verbatim}
 class rot2d {
   private:
@@ -744,7 +747,6 @@ class rot2d {
   // ...
 };
 \end{verbatim}
-
 このコンストラクタ \ccode{rot2d(const rot2d \&, const rot2d \&)} こそが合成の関数$\bullet$なのである．
 
 さて，この合成の演算子$\bullet$には次のような結合律が成り立つ．
@@ -762,7 +764,6 @@ class rot2d {
 \end{equation}
 回転$\bop{T}(0)$は\cxx コードでは \ccode{rot2d(0)} に相当する．
 次のようなデフォルトコンストラクタにしても良いかもしれない．
-
 \begin{verbatim}
 class rot2d {
   // ...
@@ -782,7 +783,6 @@ class rot2d {
 \end{equation}
 左辺をインタフェース，右辺を実装と考えると，回転角度$t$の符号を入れ替えるというディテールからインタフェースを隠すことができる．
 \cxx での実装は次のようになるだろう．
-
 \begin{verbatim}
 class rot2d {
   // ...
@@ -791,10 +791,9 @@ class rot2d {
   // ...
 };
 \end{verbatim}
-
 メンバ関数 \ccode{inverse} は自身の逆回転を新たに生成して返す．
 
-ここで，回転$\bop{T}$全体の集合$\bg{T}$を考えて見る．集合$\bg{T}$の元（要素）は無限にあり，
+ここで，回転$\bop{T}$全体の集合$\bg{T}$を考えてみる．集合$\bg{T}$の元（要素）は無限にあり，
 \begin{equation}
 \bg{T}=\{\bop{T}(0),\bop{T}(t_1),\bop{T}(t_2),\dots\}
 \end{equation}
@@ -830,11 +829,11 @@ a_1\bullet a_2\in\bg{A}
 \begin{equation}
 a_1\bullet(a_2\bullet a_3)=(a_1\bullet a_2)\bullet a_3
 \end{equation}
-が成り立ち，次のような単位元$\epsilon$があり，
+が成り立ち，任意の元$a\in\bg{A}$について次のような単位元$\epsilon$があり，
 \begin{equation}
-\epsilon\bullet a_1=a_1\bullet\epsilon=a_1
+\epsilon\bullet a=a\bullet\epsilon=a
 \end{equation}
-かつ任意の元$a\in\bg{A}$の逆元$a^-$ただし
+逆元$a^-$ただし
 \begin{equation}
 a^-\bullet a=\epsilon
 \end{equation}
@@ -920,8 +919,8 @@ $\frac{1}{2}$は整数ではないので，$(\mathbb{Z},+,\cdot)$は体として
 \end{itemize}
 が成り立つことであった．
 
-ここで，クォータニオン全体からなる集合$\mathbb{Q}$を考え，これの加算$+$と乗算$\cdot$からなる
-組み合わせ$(\mathbb{Q},+,\cdot)$は，
+ここで，クォータニオン全体からなる集合$\mathbb{H}$を考え，これの加算$+$と乗算$\cdot$からなる
+組み合わせ$(\mathbb{H},+,\cdot)$は，
 \begin{itemize}
 \item 加算($+$)に関して可換群をなす
 \item 加算($+$)と乗算($\cdot$)の間に分配律が成り立つ
@@ -986,26 +985,26 @@ A^0=1
 \end{equation}
 とした．
 
-いま，行列$I$を
+いま，行列$Z$を
 \begin{equation}
-I\equiv\begin{bmatrix}0&-1\\1&0\end{bmatrix}
+Z\equiv\begin{bmatrix}0&-1\\1&0\end{bmatrix}
 \end{equation}
-と定義しよう．この行列$I$の指数関数$\exp I$はマクローリン展開できる．
+と定義しよう．この行列$Z$の指数関数$\exp Z$はマクローリン展開できる．
 \begin{align}
-\exp I&\equiv\sum_{i=0}^\infty\frac{I^i}{i!}\\
-&=1+I+\frac{1}{2}I^2+\frac{1}{6}I^3+\dots
+\exp Z&\equiv\sum_{i=0}^\infty\frac{Z^i}{i!}\\
+&=1+Z+\frac{1}{2}Z^2+\frac{1}{6}Z^3+\dots
 \end{align}
 ただし$1$は単位行列のことである．
 
-これで指数関数$\exp I$を単なる足し算掛け算に分解できたので，我々が普段知っている算術規則で計算できる．
+これで指数関数$\exp Z$を単なる足し算掛け算に分解できたので，我々が普段知っている算術規則で計算できる．
 展開すると
 \begin{align}
-\exp I&=\begin{bmatrix}1&0\\0&1\end{bmatrix}+\begin{bmatrix}0&-1\\1&0\end{bmatrix}+\frac{1}{2}\begin{bmatrix}0&-1\\1&0\end{bmatrix}^2+\dots\\
+\exp Z&=\begin{bmatrix}1&0\\0&1\end{bmatrix}+\begin{bmatrix}0&-1\\1&0\end{bmatrix}+\frac{1}{2}\begin{bmatrix}0&-1\\1&0\end{bmatrix}^2+\dots\\
 &=\begin{bmatrix}1&0\\0&1\end{bmatrix}+\begin{bmatrix}0&-1\\1&0\end{bmatrix}-\frac{1}{2}\begin{bmatrix}1&0\\0&1\end{bmatrix}+\dots
 \end{align}
-のように定数の行列が得られるのだが，パラメタ$t$を導入して$\exp It$を計算すると面白いことが起こる．
+のように定数の行列が得られるのだが，パラメタ$t$を導入して$\exp Zt$を計算すると面白いことが起こる．
 \begin{align}
-\exp It&=\begin{bmatrix}1&0\\0&1\end{bmatrix}+\begin{bmatrix}0&-1\\1&0\end{bmatrix}t+\frac{1}{2}\begin{bmatrix}0&-1\\1&0\end{bmatrix}^2t+\frac{1}{6}\begin{bmatrix}0&-1\\1&0\end{bmatrix}^3t^3\dots\\
+\exp Zt&=\begin{bmatrix}1&0\\0&1\end{bmatrix}+\begin{bmatrix}0&-1\\1&0\end{bmatrix}t+\frac{1}{2}\begin{bmatrix}0&-1\\1&0\end{bmatrix}^2t+\frac{1}{6}\begin{bmatrix}0&-1\\1&0\end{bmatrix}^3t^3\dots\\
 &=\begin{bmatrix}1&0\\0&1\end{bmatrix}+\begin{bmatrix}0&-1\\1&0\end{bmatrix}t-\frac{1}{2}\begin{bmatrix}1&0\\0&1\end{bmatrix}t-\frac{1}{6}\begin{bmatrix}0&-1\\1&0\end{bmatrix}t^3+\dots\\
 &=\begin{bmatrix}1&0\\0&1\end{bmatrix}\left(1-\frac{1}{2}t^2+\dots\right)+\begin{bmatrix}0&-1\\1&0\end{bmatrix}\left(t-\frac{1}{6}t^3+\dots\right)\\
 &=\begin{bmatrix}1&0\\0&1\end{bmatrix}\cos t+\begin{bmatrix}0&-1\\1&0\end{bmatrix}\sin t
@@ -1017,14 +1016,14 @@ I\equiv\begin{bmatrix}0&-1\\1&0\end{bmatrix}
 \end{align}
 まとめると，次の関係があることがわかる．
 \begin{equation}
-\exp It=1\cos t+I\sin t
+\exp Zt=1\cos t+Z\sin t
 \end{equation}
 これは行列版オイラーの公式である．
 
 2次元の回転行列$\bop{T}(t)$を指数関数で書き直してみる．
 \begin{align}
-\bop{T}(t)&=\exp It\\
-  &=1\cos t+I\sin t\\
+\bop{T}(t)&=\exp Zt\\
+  &=1\cos t+Z\sin t\\
   &=\begin{bmatrix}1&0\\0&1\end{bmatrix}\cos t+\begin{bmatrix}0&-1\\1&0\end{bmatrix}\sin t\\
   &=\begin{bmatrix}\cos t&-\sin t\\\sin t&\cos t\end{bmatrix}
 \end{align}
@@ -1047,15 +1046,15 @@ I\equiv\begin{bmatrix}0&-1\\1&0\end{bmatrix}
 
 行列の指数関数を使うと，回転行列も指数関数で作ることが出来る．
 \begin{equation}
-\bop{T}_i=\exp I'_it
+\bop{T}_i=\exp Y_it
 \end{equation}
 ここに
 \begin{align}
-I'_1&=\begin{bmatrix}0&0&0\\0&0&1\\0&-1&0\end{bmatrix}\\
-I'_2&=\begin{bmatrix}0&0&-1\\0&0&0\\1&0&0\end{bmatrix}\\
-I'_3&=\begin{bmatrix}0&1&0\\-1&0&0\\0&0&0\end{bmatrix}
+Y_1&=\begin{bmatrix}0&0&0\\0&0&1\\0&-1&0\end{bmatrix}\\
+Y_2&=\begin{bmatrix}0&0&-1\\0&0&0\\1&0&0\end{bmatrix}\\
+Y_3&=\begin{bmatrix}0&1&0\\-1&0&0\\0&0&0\end{bmatrix}
 \end{align}
-である．行列$I'_i$を3次元回転の\keyword{生成子}と呼ぶ．
+である．行列$Y_i$を3次元回転の\keyword{生成子}と呼ぶ．
 
 ここで三角関数のテイラー展開を思い出そう．
 \begin{align}
@@ -1073,7 +1072,7 @@ I'_3&=\begin{bmatrix}0&1&0\\-1&0&0\\0&0&0\end{bmatrix}
   &=\begin{bmatrix}1&\verysmall t_3&-\verysmall t_2\\
     -\verysmall t_3&1&\verysmall t_1\\
     \verysmall t_2&-\verysmall t_1&1\end{bmatrix}\\
-  &=1+\sum_{i=1}^3I'_i\verysmall t_i
+  &=1+\sum_{i=1}^3Y_i\verysmall t_i
 \end{align}
 となり，回転演算子を線形に出来る．ここで再び生成子が顔を出すが，これこそが回転の本質を表す重要な行列なのである．
 それを次に見てみよう．
@@ -1086,10 +1085,10 @@ I'_3&=\begin{bmatrix}0&1&0\\-1&0&0\\0&0&0\end{bmatrix}
 \end{equation}
 であるとする．ここに$t$はパラメタである．
 
-例えば行列$A$として$I$を用いた$\exp It$は2次元の回転行列である．
+例えば行列$A$として$Z$を用いた$\exp Zt$は2次元の回転行列である．
 この場合群$\bg{G}$は2次元の回転群である．
 
-行列$A$として$\I'_i$ただし $i=\{1,2,3\}$ という集合を選んだ$\exp I'_it$は3次元の回転行列の集合になる．
+行列$A$として$Y_i$ただし $i=\{1,2,3\}$ という集合を選んだ$\exp Y_it$は3次元の回転行列の集合になる．
 この場合群$\bg{G}$は3次元の回転群である．
 
 行列$A$の集合$\bg{A}$を群$\bg{G}$の\keyword{リー代数}と呼ぶ．
@@ -1097,7 +1096,7 @@ I'_3&=\begin{bmatrix}0&1&0\\-1&0&0\\0&0&0\end{bmatrix}
 非常に小さな回転を考えてみよう．2次元でも3次元でも同じなので，いまは2次元を考える．
 回転角を$\verysmall t$として，回転を表す行列を$\bop{T}(\verysmall t)$とすると，
 \begin{equation}
-\bop{T}(\verysmall t)=\exp I\verysmall t
+\bop{T}(\verysmall t)=\exp Z\verysmall t
 \end{equation}
 であった．
 % 3次元の場合も，$i$軸周りの回転は
@@ -1108,12 +1107,12 @@ I'_3&=\begin{bmatrix}0&1&0\\-1&0&0\\0&0&0\end{bmatrix}
 回転前のベクトルを$\bvec{p}$，回転後のベクトルを$\bvec{p}'$とすると
 \begin{align}
 \bvec{p}'&=\bop{T}(\verysmall t)\bvec{p}\\
-  &=\exp(I\verysmall t)\bvec{p}
+  &=\exp(Z\verysmall t)\bvec{p}
 \end{align}
 なので，テイラー展開をすると
 \begin{align}
-\bvec{p}'&=(1+I\verysmall t+(\text{$\verysmall t$の2次以上の項}))\bvec{p}\\
-  &\simeq\bvec{p}+I\verysmall t\bvec{p}
+\bvec{p}'&=(1+Z\verysmall t+(\text{$\verysmall t$の2次以上の項}))\bvec{p}\\
+  &\simeq\bvec{p}+Z\verysmall t\bvec{p}
 \end{align}
 である．
 ここで
@@ -1122,32 +1121,32 @@ I'_3&=\begin{bmatrix}0&1&0\\-1&0&0\\0&0&0\end{bmatrix}
 \end{equation}
 と定義すると，
 \begin{equation}
-\verysmall\bvec{p}=\verysmall tI\bvec{p}
+\verysmall\bvec{p}=\verysmall tZ\bvec{p}
 \end{equation}
 である．だいぶ見慣れた形になってきただろうか．右辺の$\verysmall t$を左辺の分母へ持っていくと次のようになる．
 \begin{equation}
-\frac{\verysmall\bvec{p}}{\verysmall t}=I\bvec{p}
+\frac{\verysmall\bvec{p}}{\verysmall t}=Z\bvec{p}
 \end{equation}
 
 上式は $\verysmall t\rightarrow0$ の極限を考えると理解しやすい．すなわち
 \begin{equation}
-\frac{d\bvec{p}}{dt}=I\bvec{p}
+\frac{d\bvec{p}}{dt}=Z\bvec{p}
 \end{equation}
 であり，形式的に微分演算子$d/dt$を引き出すと
 \begin{equation}
-\frac{d}{dt}\bvec{p}=I\bvec{p}
+\frac{d}{dt}\bvec{p}=Z\bvec{p}
 \end{equation}
 となることから，これも全く形式的に
 \begin{equation}
-\frac{d}{dt}=I
+\frac{d}{dt}=Z
 \end{equation}
-と言える．これをもって，「行列$I$が無限小回転の構造を決定している」と言う．
+と言える．これをもって，「行列$Z$が無限小回転の構造を決定している」と言う．
 
-行列に$I$を選んだのは全くの任意であったので，上述の議論は3次元の生成子$I'_i$についても成り立つ．
+行列に$Z$を選んだのは全くの任意であったので，上述の議論は3次元の生成子$Y_i$についても成り立つ．
 
 一般に$\exp At\in\bg{G}$となるような行列$A$の集合$\bg{A}$を集合$\bg{G}$のリー代数と呼ぶのであった．
 群$\bg{G}$に2次元の回転群を選べば，集合$\bg{A}$の元は$I$だけである．
-群$\bg{G}$に3次元の回転群を選べば，集合$\bg{A}$の元は $I_1',I_2',I_3'$ である．
+群$\bg{G}$に3次元の回転群を選べば，集合$\bg{A}$の元は $Y_1,Y_2,Y_3$ である．
 すなわち群$\bg{G}$のリー代数が無限小回転の構造を決定していると言える．
 無限小回転の構造と言うと長ったらしいが，ようするに回転角による微分と思えば良い．
 
@@ -1166,15 +1165,15 @@ I'_3&=\begin{bmatrix}0&1&0\\-1&0&0\\0&0&0\end{bmatrix}
 という演算子で，非可換の度合いを示すような演算子である．
 リー代数$\bg{A}$の元$A_1,A_2$について，その交換子積$[A_1,A_2]$もまたリー代数$\bg{A}$である．
 
-リー代数$\bg{A}$の生成子を$K_n$とすると，リー代数はベクトル空間を張っているから
+リー代数$\bg{A}$の生成子を$X_n$とすると，リー代数はベクトル空間を張っているから
 \begin{equation}
-[K_i,K_j]=\sum_{k=1}^nf_{ijk}K_k
+[X_i,X_j]=\sum_{k=1}^nf_{ijk}X_k
 \end{equation}
 が言える．ただし$f_{ijk}$は実数である．この実数$f_{ijk}$のことをリー代数の\keyword{構造定数}と呼ぶ．
 
-3次元の回転行列の生成子$I'_n$について，その構造定数を調べてみよう．
+3次元の回転行列の生成子$Y_n$について，その構造定数を調べてみよう．
 \begin{equation}
-[I_i',I_j']=-\sum_{k=1}^3\varepsilon_{ijk}I_k'
+[Y_i,Y_j]=-\sum_{k=1}^3\varepsilon_{ijk}Y_k
 \end{equation}
 であり，この$\varepsilon_{ijk}$は\keyword{レビ・チビタ記号}である．
 レビ・チビタ記号とは，添え字によって $-1,0,1$ の異なる値をとる記号であり，
@@ -1213,7 +1212,7 @@ $\frac{1}{2}$をかけるのは生成子のノルムを$1$にするためのも�
 プログラミング言語にはたいてい論理演算のための型や演算子がある．
 \cxx 言語で言えば\ccode{bool}（ブール）型だ．
 ディジタルコンピュータは内部では論理演算しか扱えないから，
-ここまで紹介してきた数学も，実装レベルでは全て論理演算によてシミュレートされている．
+ここまで紹介してきた数学も，実装レベルでは全て論理演算によてエミュレートされている．
 この論理演算に関しても深い数学構造がある．それが「ブール束」と呼ばれる構造だ．
 その構造に最後に触れることにしよう．
 
